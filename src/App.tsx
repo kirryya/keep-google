@@ -24,15 +24,9 @@ function App() {
     const [search, setSearch] = useState('')
 
     const onChangeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if(!e.currentTarget.value) {
-            setTodolists(todolists)
-            setSearch('')
-            return
-        }
-
         setSearch(e.currentTarget.value)
         setTodolists(
-            todolists.filter( (todolists) => todolists.title.toLowerCase().includes(search))
+            todolists.filter((tl) => tl.title.toLowerCase().includes(e.currentTarget.value))
         )
     }
 
@@ -112,7 +106,7 @@ function App() {
         let newTodolistId = v1();
         let newTodolist: TodolistType = {id: newTodolistId, title, filter: 'all'};
         setTodolists([newTodolist, ...todolists]);
-        setTasks({...tasks,[newTodolistId]: []})
+        setTasks({...tasks, [newTodolistId]: []})
     }
 
     return (

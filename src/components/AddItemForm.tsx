@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Button, TextField} from "@mui/material";
+import {Button, ClickAwayListener, TextField} from "@mui/material";
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -7,8 +7,17 @@ type AddItemFormPropsType = {
 
 export function AddItemForm(props: AddItemFormPropsType) {
 
-    let [title, setTitle] = useState("")
-    let [error, setError] = useState<string | null>(null)
+    const [title, setTitle] = useState("")
+    const [error, setError] = useState<string | null>(null)
+    const [textField, setTextField] = useState<boolean>(false)
+
+    const onClickHandler = () => {
+        setTextField(true)
+    }
+
+    const onClickAwayHandler = () => {
+        setTextField(false)
+    }
 
     const addItem = () => {
         if (title.trim() !== "") {
@@ -30,18 +39,35 @@ export function AddItemForm(props: AddItemFormPropsType) {
         }
     }
 
-    return <div>
-        <TextField variant="outlined"
-                   error={!!error}
-                   value={title}
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}
-                   label="Заметка"
-                   helperText={error}
-        />
-        <Button variant="contained"
-                onClick={addItem}
-                style={{maxWidth: '40px', maxHeight: '40px', minWidth: '40px', minHeight: '40px', margin: '7px'}}
-        >+</Button>
-    </div>
+    return (
+        <ClickAwayListener onClickAway={onClickAwayHandler}>
+            <div style={{display: "flex", margin: "auto", border: ""}}>
+                <div style={{display: "flex", flexDirection: "column"}}>
+                    {textField &&
+                        <TextField variant="outlined"
+                                   error={!!error}
+                                   // value={title}
+                                   // onChange={onChangeHandler}
+                                   // onKeyPress={onKeyPressHandler}
+                                   label="Название"
+                                   helperText={error}
+                        />
+                    }
+                    <TextField label="Заметка" onClick={onClickHandler} multiline maxRows={Infinity} helperText={error}  error={!!error}  value={title}  onChange={onChangeHandler} onKeyPress={onKeyPressHandler}/>
+                </div>
+                <div>
+                    <Button variant="contained"
+                            onClick={addItem}
+                            style={{
+                                maxWidth: '40px',
+                                maxHeight: '40px',
+                                minWidth: '40px',
+                                minHeight: '40px',
+                                margin: '7px'
+                            }}
+                    >+</Button>
+                </div>
+            </div>
+        </ClickAwayListener>
+    )
 }

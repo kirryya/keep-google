@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ChangeEvent, useState} from 'react';
-import SearchAppBar from "./components/SearchAppBar";
+import {AppDrawer} from "./components/AppDrawer";
 import {AddItemForm} from "./components/AddItemForm";
 import {Container, Grid, Paper} from "@mui/material";
 import {TaskType, Todolist} from "./Todolist";
@@ -24,10 +24,14 @@ function App() {
     const [search, setSearch] = useState('')
 
     const onChangeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.currentTarget.value) {
+            setTodolists(todolists)
+            setSearch('')
+        }
         setSearch(e.currentTarget.value)
-        setTodolists(
-            todolists.filter((tl) => tl.title.toLowerCase().includes(e.currentTarget.value))
-        )
+
+        setTodolists([...todolists])
+
     }
 
     function removeTask(id: string, todolistId: string) {
@@ -111,9 +115,9 @@ function App() {
 
     return (
         <div>
-            <SearchAppBar search={search} onChangeHandler={onChangeSearchHandler}/>
+            <AppDrawer />
             <Container fixed>
-                <Grid container style={{padding: "20px"}}>
+                <Grid container style={{padding: "100px"}}>
                     <AddItemForm addItem={addTodolist}/>
                 </Grid>
                 <Grid container spacing={3}>
@@ -130,7 +134,7 @@ function App() {
                             }
 
                             return <Grid item key={tl.id}>
-                                <Paper style={{padding: "20px"}} elevation={15}>
+                                <Paper style={{padding: "20px"}} elevation={10}>
                                     <Todolist
                                         key={tl.id}
                                         id={tl.id}

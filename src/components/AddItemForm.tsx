@@ -1,12 +1,15 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Button, ClickAwayListener, TextField} from "@mui/material";
+import React, {ChangeEvent, useState} from 'react';
+import {ClickAwayListener, TextField} from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 
 type AddItemFormPropsType = {
-    addItem: (title: string) => void
+    addItem: (title: string, note: string) => void
+    style?: any
 }
 
 export function AddItemForm(props: AddItemFormPropsType) {
 
+    const [note, setNote] = useState("")
     const [title, setTitle] = useState("")
     const [error, setError] = useState<string | null>(null)
     const [textField, setTextField] = useState<boolean>(false)
@@ -20,52 +23,59 @@ export function AddItemForm(props: AddItemFormPropsType) {
     }
 
     const addItem = () => {
-        if (title.trim() !== "") {
-            props.addItem(title);
-            setTitle("");
+        if (note.trim() !== "") {
+            props.addItem(title, note);
+            setNote("");
+            setTitle("")
+            setError(null)
         } else {
-            setError("Название необходимо!");
+            setError("Обязательно!");
         }
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeNoteHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setNote(e.currentTarget.value)
+    }
+
+    const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
-    }
-
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null);
-        if (e.key === "Enter") {
-            addItem();
-        }
     }
 
     return (
         <ClickAwayListener onClickAway={onClickAwayHandler}>
-            <div style={{display: "flex", margin: "auto", border: ""}}>
+            <div style={{
+                display: "flex",
+                margin: "auto",
+                boxShadow: '1px 3px 1em 0 #dadce0',
+                border: '1px solid #dadce0',
+                padding: "20px",
+                width: "600px",
+                borderRadius: "6px"
+            }}>
                 <div style={{display: "flex", flexDirection: "column"}}>
                     {textField &&
-                        <TextField variant="outlined"
-                                   error={!!error}
-                                   // value={title}
-                                   // onChange={onChangeHandler}
-                                   // onKeyPress={onKeyPressHandler}
-                                   label="Название"
-                                   helperText={error}
+                        <TextField
+                            placeholder="Введите заголовок"
+                            variant="standard"
+                            value={title}
+                            onChange={onChangeTitleHandler}
+                            InputProps={{disableUnderline: true}}
+                            style={{marginBottom: 10}}
                         />
                     }
-                    <TextField label="Заметка" onClick={onClickHandler} multiline maxRows={Infinity} helperText={error}  error={!!error}  value={title}  onChange={onChangeHandler} onKeyPress={onKeyPressHandler}/>
-                </div>
-                <div>
-                    <Button variant="contained"
-                            onClick={addItem}
-                            style={{
-                                maxWidth: '40px',
-                                maxHeight: '40px',
-                                minWidth: '40px',
-                                minHeight: '40px',
-                                margin: '7px'
-                            }}
-                    >+</Button>
+                    <TextField placeholder="Заметка..."
+                               variant="standard"
+                               onClick={onClickHandler}
+                               multiline maxRows={Infinity}
+                               helperText={error}
+                               error={!!error}
+                               value={note}
+                               onChange={onChangeNoteHandler}
+                               InputProps={{disableUnderline: true}}
+                    />
+                    {textField && <AddIcon onClick={addItem} fontSize={"medium"} />
+
+                    }
                 </div>
             </div>
         </ClickAwayListener>

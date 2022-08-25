@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {TextField} from "@mui/material";
 
 type EditableSpanPropsType = {
@@ -18,17 +18,13 @@ export function EditableSpan(props: EditableSpanPropsType) {
         setEditMode(false);
         props.onChange(title);
     }
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
-            setEditMode(false);
-            props.onChange(title);
-        }
-    }
+
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
     return editMode
-        ?    <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} onKeyPress={onKeyPressHandler}/>
+        ? <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} multiline
+                     maxRows={Infinity}/>
         : <span onDoubleClick={activateEditMode}>{props.value}</span>
 }

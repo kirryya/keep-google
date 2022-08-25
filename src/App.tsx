@@ -5,12 +5,14 @@ import {AddItemForm} from "./components/AddItemForm";
 import {Container, Grid, Paper} from "@mui/material";
 import {TaskType, Todolist} from "./Todolist";
 import {v1} from 'uuid';
+import {Provider} from "./context/Provider";
 
 export type FilterValuesType = "all" | "active" | "completed";
 type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
+    note: string
 }
 
 type TasksStateType = {
@@ -105,16 +107,26 @@ function App() {
             setTodolists([...todolists]);
         }
     }
+    function changeTodolistNote(id: string, note: string) {
+        // найдём нужный todolist
+        const todolist = todolists.find(tl => tl.id === id);
+        if (todolist) {
+            // если нашёлся - изменим ему заголовок
+            todolist.note = note;
+            setTodolists([...todolists]);
+        }
+    }
 
-    function addTodolist(title: string) {
+    function addTodolist(title: string, note: string) {
         let newTodolistId = v1();
-        let newTodolist: TodolistType = {id: newTodolistId, title, filter: 'all'};
+        let newTodolist: TodolistType = {id: newTodolistId, title, note, filter: 'all'};
         setTodolists([newTodolist, ...todolists]);
         setTasks({...tasks, [newTodolistId]: []})
     }
 
     return (
-        <div>
+        // @ts-ignore
+        <Provider >
             <AppDrawer />
             <Container fixed>
                 <Grid container style={{padding: "100px"}}>
@@ -148,6 +160,8 @@ function App() {
                                         removeTodolist={removeTodolist}
                                         changeTaskTitle={changeTaskTitle}
                                         changeTodolistTitle={changeTodolistTitle}
+                                        changeTodolistNote={changeTodolistNote}
+                                        note={tl.note}
                                     />
                                 </Paper>
                             </Grid>
@@ -155,7 +169,8 @@ function App() {
                     }
                 </Grid>
             </Container>
-        </div>
+        </Provider>
+
     );
 }
 

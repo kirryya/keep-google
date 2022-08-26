@@ -1,8 +1,7 @@
-import {Delete} from '@mui/icons-material';
-import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
-import IconButton from '@mui/material/IconButton';
-import React from 'react';
+import {TextField} from '@mui/material';
+import React, {ChangeEvent, useState} from 'react';
 import {EditableSpan} from './components/EditableSpan';
+import {ButtonsBar} from "./ButtonsBar";
 
 type PropsType = {
     id: string
@@ -11,14 +10,27 @@ type PropsType = {
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     changeTodolistNote: (id: string, newNote: string) => void
+    addTodolistTitle: (id: string, newTitle: string) => void
 }
 
 export function Todolist(props: PropsType) {
+
+    const [newTitle, setNewTitle] = useState<boolean>(false)
+
+    const addTitle = () => {
+        setNewTitle(true)
+    }
+    const closeAddTitle = () => {
+        setNewTitle(false)
+    }
 
     const removeTodolist = () => {
         props.removeTodolist(props.id);
     }
 
+    const addTodolistTitle = (e: ChangeEvent<HTMLInputElement>) => {
+        props.changeTodolistTitle(props.id, e.currentTarget.value);
+    }
     const changeTodolistTitle = (title: string) => {
         props.changeTodolistTitle(props.id, title);
     }
@@ -27,24 +39,23 @@ export function Todolist(props: PropsType) {
         props.changeTodolistNote(props.id, note);
     }
 
-    return <div>
+    return (
         <div>
-            <h3>
-                <EditableSpan value={props.title} onChange={changeTodolistTitle}/>
-            </h3>
-            <div>
-                <EditableSpan value={props.note} onChange={changeTodolistNote}/>
+            <div style={{minWidth: "240px", maxHeight:"450px", width:"100%"}}>
+                {newTitle && <TextField value={props.title} onChange={addTodolistTitle} onBlur={closeAddTitle}/>}
+                <h3>
+                    {!newTitle && <EditableSpan value={props.title} onChange={changeTodolistTitle}/>}
+                </h3>
+                <div>
+                    <EditableSpan value={props.note} onChange={changeTodolistNote}/>
+                </div>
             </div>
-            <div style={{marginTop: "20px", marginLeft: "-10px"}}>
-                <IconButton >
-                    <ArchiveOutlinedIcon fontSize="small"/>
-                </IconButton>
-                <IconButton onClick={removeTodolist}>
-                    <Delete fontSize="small"/>
-                </IconButton>
-            </div>
+            <ButtonsBar removeTodolist={removeTodolist} addTitle={addTitle} title={props.title}/>
         </div>
-    </div>
+    )
 }
+
+
+
 
 

@@ -26,5 +26,5 @@ export function EditableSpan(props: EditableSpanPropsType) {
     return editMode
         ? <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} multiline
                      maxRows={Infinity}/>
-        : <span onDoubleClick={activateEditMode}>{props.value}</span>
+        : <span onDoubleClick={activateEditMode} style={{maxWidth: "240px"}}>{props.value}</span>
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ChangeEvent, useState} from 'react';
 import {AppDrawer} from "./components/AppDrawer";
 import {AddItemForm} from "./components/AddItemForm";
-import {Container, Grid, Paper, Typography} from "@mui/material";
+import {Box, Container, Grid, Paper, Typography} from "@mui/material";
 import {Todolist} from "./Todolist";
 import {v1} from 'uuid';
 import {Provider} from "./context/Provider";
@@ -19,7 +19,7 @@ function App() {
     const [notes, setNotes] = useState<Array<NoteType>>([])
     const [search, setSearch] = useState<string>('')
 
-    const searched = notes.filter(tl => tl.title.toLowerCase().includes(search.toLowerCase()))
+    const searched = notes.filter(tl => tl.title.toLowerCase().includes(search.toLowerCase()) || tl.note.toLowerCase().includes(search.toLowerCase()))
 
     const onChangeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const searchValue = e.currentTarget.value
@@ -44,7 +44,7 @@ function App() {
 
     return (
         <Provider>
-            <AppDrawer search={search} onChangeSearchHandler={onChangeSearchHandler} />
+            <AppDrawer search={search} onChangeSearchHandler={onChangeSearchHandler}/>
             <Container fixed>
                 <Grid container style={{padding: "100px"}}>
                     <AddItemForm addItem={addTodolist}/>
@@ -54,17 +54,23 @@ function App() {
                         {
                             searched.map(tl => {
                                 return <Grid item key={tl.id}>
-                                    <Paper style={{padding: "20px", width: "240px", borderRadius: "8px"}} elevation={3}>
-                                        <Todolist
-                                            key={tl.id}
-                                            id={tl.id}
-                                            title={tl.title}
-                                            note={tl.note}
-                                            removeTodolist={removeTodolist}
-                                            changeTodolistTitle={changeTodolistTitle}
-                                            changeTodolistNote={changeTodolistNote}
-                                        />
-                                    </Paper>
+                                    <Box sx={{display: "flex", width: "100%"}}>
+                                        <Box sx={{p: 3, width: "100%"}}>
+                                            <Paper style={{padding: "20px", minWidth: "240px", borderRadius: "8px"}}
+                                                   elevation={3}>
+                                                <Todolist
+                                                    key={tl.id}
+                                                    id={tl.id}
+                                                    title={tl.title}
+                                                    note={tl.note}
+                                                    removeTodolist={removeTodolist}
+                                                    changeTodolistTitle={changeTodolistTitle}
+                                                    changeTodolistNote={changeTodolistNote}
+                                                    addTodolistTitle={changeTodolistTitle}
+                                                />
+                                            </Paper>
+                                        </Box>
+                                    </Box>
                                 </Grid>
                             })
                         }

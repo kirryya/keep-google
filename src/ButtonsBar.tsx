@@ -13,16 +13,25 @@ type ButtonsBarType = {
 }
 
 export const ButtonsBar = (props: ButtonsBarType) => {
+
+    const onClickDeleteHandler = () => {
+
+    }
+
+    const onClickArchiveHandler = () => {
+
+    }
+
     return <div>
         <div style={{marginTop: "25px", marginLeft: "-10px"}}>
             <Tooltip title="Переместить в архив">
-                <IconButton>
-                    <ArchiveOutlinedIcon fontSize="small"/>
+                <IconButton onClick={onClickArchiveHandler}>
+                    <ArchiveOutlinedIcon fontSize="small" />
                 </IconButton>
             </Tooltip>
             <Tooltip title="Переместить в корзину">
-                <IconButton>
-                    <Delete fontSize="small"/>
+                <IconButton onClick={onClickDeleteHandler}>
+                    <Delete fontSize="small" />
                 </IconButton>
             </Tooltip>
             <Tooltip title="Удалить">

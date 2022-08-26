@@ -20,6 +20,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
 
     const onClickAwayHandler = () => {
         setTextField(false)
+
     }
 
     const addItem = () => {
@@ -28,6 +29,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
             setNote("");
             setTitle("")
             setError(null)
+            setTextField(false)
         } else {
             setError("Обязательно!");
         }
@@ -73,7 +75,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
                                onChange={onChangeNoteHandler}
                                InputProps={{disableUnderline: true}}
                     />
-                    {textField && <AddIcon onClick={addItem} fontSize={"medium"} />
+                    {textField && <AddIcon onClick={addItem} fontSize={"medium"}/>
 
                     }
                 </div>

@@ -1,29 +1,16 @@
 import {Delete} from '@mui/icons-material';
+import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import IconButton from '@mui/material/IconButton';
 import React from 'react';
-import {FilterValuesType} from './App';
 import {EditableSpan} from './components/EditableSpan';
-
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
 
 type PropsType = {
     id: string
     title: string
     note: string
-    tasks: Array<TaskType>
-    removeTask: (taskId: string, todolistId: string) => void
-    changeFilter: (value: FilterValuesType, todolistId: string) => void
-    addTask: (title: string, todolistId: string) => void
-    changeTaskStatus: (id: string, isDone: boolean, todolistId: string) => void
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     changeTodolistNote: (id: string, newNote: string) => void
-    filter: FilterValuesType
-    changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void
 }
 
 export function Todolist(props: PropsType) {
@@ -48,9 +35,14 @@ export function Todolist(props: PropsType) {
             <div>
                 <EditableSpan value={props.note} onChange={changeTodolistNote}/>
             </div>
-            <IconButton onClick={removeTodolist}>
-                <Delete/>
-            </IconButton>
+            <div style={{marginTop: "20px", marginLeft: "-10px"}}>
+                <IconButton >
+                    <ArchiveOutlinedIcon fontSize="small"/>
+                </IconButton>
+                <IconButton onClick={removeTodolist}>
+                    <Delete fontSize="small"/>
+                </IconButton>
+            </div>
         </div>
     </div>
 }

@@ -22,6 +22,7 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import SearchIcon from '@mui/icons-material/Search';
+import {ChangeEvent} from "react";
 
 const drawerWidth = 180;
 
@@ -123,8 +124,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+type AppDrawerPropsType = {
+    search: string
+    onChangeSearchHandler: (e: ChangeEvent<HTMLInputElement>) => void
+}
 
-export function AppDrawer() {
+export function AppDrawer(props: AppDrawerPropsType) {
     const [open, setOpen] = React.useState(false);
 
     const handleDrawer = () => {
@@ -147,13 +152,15 @@ export function AppDrawer() {
                         <MenuIcon/>
                     </IconButton>
                     <Typography style={{marginLeft: '25px', fontSize: '22px'}}>Keep</Typography>
-                    <Search style={{border: '1px #dadce0', marginLeft: '100px', backgroundColor: '#e1e0e0'}}>
+                    <Search style={{border: '1px #dadce0', marginLeft: '100px', backgroundColor: '#e1e0e0'}} >
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Поиск"
                             inputProps={{ 'aria-label': 'search' }}
+                            onChange={props.onChangeSearchHandler}
+                            value={props.search}
                         />
                     </Search>
                 </Toolbar>

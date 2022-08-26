@@ -3,6 +3,8 @@ import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import IconButton from '@mui/material/IconButton';
 import React from 'react';
 import {EditableSpan} from './components/EditableSpan';
+import AddIcon from "@mui/icons-material/Add";
+import {Tooltip} from "@mui/material";
 
 type PropsType = {
     id: string
@@ -27,24 +29,38 @@ export function Todolist(props: PropsType) {
         props.changeTodolistNote(props.id, note);
     }
 
-    return <div>
+    return (
         <div>
-            <h3>
-                <EditableSpan value={props.title} onChange={changeTodolistTitle}/>
-            </h3>
             <div>
-                <EditableSpan value={props.note} onChange={changeTodolistNote}/>
-            </div>
-            <div style={{marginTop: "20px", marginLeft: "-10px"}}>
-                <IconButton >
-                    <ArchiveOutlinedIcon fontSize="small"/>
-                </IconButton>
-                <IconButton onClick={removeTodolist}>
-                    <Delete fontSize="small"/>
-                </IconButton>
+                <h3>
+                    <EditableSpan value={props.title} onChange={changeTodolistTitle}/>
+                </h3>
+                <div>
+                    <EditableSpan value={props.note} onChange={changeTodolistNote}/>
+                </div>
+                <div style={{marginTop: "20px", marginLeft: "-10px"}}>
+                    <Tooltip title={"Переместить в архив"}>
+                        <IconButton>
+                            <ArchiveOutlinedIcon fontSize="small"/>
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title={"Переместить в корзину"}>
+                        <IconButton onClick={removeTodolist}>
+                            <Delete fontSize="small"/>
+                        </IconButton>
+                    </Tooltip>
+                    {!props.title ?
+                        <Tooltip title={"Добавить заголовок"}>
+                            <IconButton>
+                                <AddIcon fontSize={"small"}/>
+                            </IconButton>
+                        </Tooltip>
+                        : ""
+                    }
+                </div>
             </div>
         </div>
-    </div>
+    )
 }
 
 

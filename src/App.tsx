@@ -44,7 +44,7 @@ function App() {
 
     return (
         <Provider>
-            <AppDrawer search={search} onChangeSearchHandler={onChangeSearchHandler} />
+            <AppDrawer search={search} onChangeSearchHandler={onChangeSearchHandler}/>
             <Container fixed>
                 <Grid container style={{padding: "100px"}}>
                     <AddItemForm addItem={addTodolist}/>
@@ -54,7 +54,7 @@ function App() {
                         {
                             searched.map(tl => {
                                 return <Grid item key={tl.id}>
-                                    <Paper style={{padding: "20px", width: "240px", borderRadius: "8px"}} elevation={3}>
+                                    <Paper style={{padding: "20px", width: "240px", borderRadius: "8px"}} elevation={3} >
                                         <Todolist
                                             key={tl.id}
                                             id={tl.id}

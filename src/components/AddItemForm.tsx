@@ -20,7 +20,6 @@ export function AddItemForm(props: AddItemFormPropsType) {
 
     const onClickAwayHandler = () => {
         setTextField(false)
-
     }
 
     const addItem = () => {
@@ -68,7 +67,8 @@ export function AddItemForm(props: AddItemFormPropsType) {
                     <TextField placeholder="Заметка..."
                                variant="standard"
                                onClick={onClickHandler}
-                               multiline maxRows={Infinity}
+                               multiline
+                               maxRows={Infinity}
                                helperText={error}
                                error={!!error}
                                value={note}
@@ -76,7 +76,6 @@ export function AddItemForm(props: AddItemFormPropsType) {
                                InputProps={{disableUnderline: true}}
                     />
                     {textField && <AddIcon onClick={addItem} fontSize={"medium"}/>
-
                     }
                 </div>
             </div>

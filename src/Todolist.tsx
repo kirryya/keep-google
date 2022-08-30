@@ -41,7 +41,7 @@ export function Todolist(props: PropsType) {
 
     return (
         <div>
-            <div style={{minWidth: "240px", maxHeight:"450px", width:"100%"}}>
+            <div style={{minWidth: "240px", maxWidth:"240px"}}>
                 {newTitle && <TextField value={props.title} onChange={addTodolistTitle} onBlur={closeAddTitle}/>}
                 <h3>
                     {!newTitle && <EditableSpan value={props.title} onChange={changeTodolistTitle}/>}

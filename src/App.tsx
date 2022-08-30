@@ -6,30 +6,32 @@ import {Box, Container, Grid, Paper, Typography} from "@mui/material";
 import {Todolist} from "./Todolist";
 import {v1} from 'uuid';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
-import {CartProvider, NoteContext, NoteType} from "./context/Context";
+import {NoteContext, NotesProvider} from "./context/Context";
 
 
 export function App() {
 
-    const [search, setSearch] = useState<string>('')
+    const [search, setSearch] = useState<string>("")
 
     const onChangeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const searchValue = e.currentTarget.value
-        setSearch(searchValue)
+        setSearch(e.currentTarget.value)
     }
 
-    return <CartProvider>
-        <AppDrawer search={search} onChangeSearchHandler={onChangeSearchHandler}/>
-        <Todolists/>
-    </CartProvider>
+    return <NotesProvider>
+        <AppDrawer onChangeSearchHandler={onChangeSearchHandler} search={search}/>
+        <Todolists search={search}/>
+    </NotesProvider>
 }
 
+type TodolistsPropsType = {
+    search: string
+}
 
-export const Todolists = () => {
+export const Todolists = (props: TodolistsPropsType) => {
 
-    const [notes, setNotes] = useContext<NoteType[]>(NoteContext)
+    const {notes, setNotes} = useContext(NoteContext)
 
-    const searched = notes.filter(tl => tl.title.toLowerCase().includes(search.toLowerCase()) || tl.note.toLowerCase().includes(search.toLowerCase()))
+    const searched = notes.filter(tl => tl.title.toLowerCase().includes(props.search.toLowerCase()) || tl.note.toLowerCase().includes(props.search.toLowerCase()))
 
     function removeTodolist(id: string) {
         setNotes(notes.filter(tl => tl.id !== id));

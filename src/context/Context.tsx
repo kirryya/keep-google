@@ -6,19 +6,19 @@ export type NoteType = {
     note: string
 }
 
-interface ContextType {
-    notes: NoteType[];
-    setNotes: Dispatch<SetStateAction<NoteType[]>>;
+type ContextType = {
+    notes: NoteType[]
+    setNotes: Dispatch<SetStateAction<NoteType[]>>
 }
 
 export const noteContextDefaultValue: ContextType = {
     notes: [],
-    setNotes: () => []
+    setNotes: () => [],
 }
 
 export const NoteContext = createContext<ContextType>(noteContextDefaultValue);
 
-export const CartProvider = ({children}: { children: ReactNode }) => {
+export const NotesProvider = ({children}: { children: ReactNode }) => {
     const [notes, setNotes] = useState<NoteType[]>([]);
     const value = {notes, setNotes}
 

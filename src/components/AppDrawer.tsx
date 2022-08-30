@@ -123,8 +123,8 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 type AppDrawerPropsType = {
-    search: string
     onChangeSearchHandler: (e: ChangeEvent<HTMLInputElement>) => void
+    search: string
 }
 
 export function AppDrawer(props: AppDrawerPropsType) {
@@ -134,13 +134,12 @@ export function AppDrawer(props: AppDrawerPropsType) {
         setOpen(prevState => !prevState);
     };
 
-
     return (
         <Box sx={{display: 'flex'}}>
             <Header open={open}
                     handleDrawer={handleDrawer}
-                    search={props.search}
                     onChangeSearchHandler={props.onChangeSearchHandler}
+                    search={props.search}
             />
             <SideBar open={open}/>
         </Box>
@@ -183,11 +182,12 @@ export const SideBar = (props: SideBarType) => {
 type HeaderType = {
     open: boolean
     handleDrawer: () => void
-    search: string
     onChangeSearchHandler: (e: ChangeEvent<HTMLInputElement>) => void
+    search: string
 }
 
 export const Header = (props: HeaderType) => {
+
     return <>
         <AppBar open={props.open} color='inherit' style={{boxShadow: 'inset 0 -1px 0 0 #dadce0', height: '65px'}}>
             <Toolbar>

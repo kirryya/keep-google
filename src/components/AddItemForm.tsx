@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
-import {ClickAwayListener, TextField} from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+import {ClickAwayListener, TextField, Tooltip} from "@mui/material";
+import LoupeOutlinedIcon from '@mui/icons-material/LoupeOutlined';
 
 type AddItemFormPropsType = {
     addItem: (title: string, note: string) => void
@@ -50,7 +50,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
                 boxShadow: '1px 3px 1em 0 #dadce0',
                 border: '1px solid #dadce0',
                 padding: "20px",
-                width: "600px",
+                width: "500px",
                 borderRadius: "6px"
             }}>
                 <div style={{display: "flex", flexDirection: "column"}}>
@@ -67,15 +67,17 @@ export function AddItemForm(props: AddItemFormPropsType) {
                     <TextField placeholder="Заметка..."
                                variant="standard"
                                onClick={onClickHandler}
-                               multiline
-                               maxRows={Infinity}
+                               multiline maxRows={Infinity}
                                helperText={error}
                                error={!!error}
                                value={note}
                                onChange={onChangeNoteHandler}
                                InputProps={{disableUnderline: true}}
                     />
-                    {textField && <AddIcon onClick={addItem} fontSize={"medium"}/>
+                    {textField &&
+                        <Tooltip title="Добавить заметку">
+                            <LoupeOutlinedIcon onClick={addItem} fontSize={"medium"} style={{marginTop: "25px"}}/>
+                        </Tooltip>
                     }
                 </div>
             </div>

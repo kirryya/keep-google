@@ -19,7 +19,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import Delete from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 
 const drawerWidth = 180;
@@ -128,54 +128,86 @@ type AppDrawerPropsType = {
 }
 
 export function AppDrawer(props: AppDrawerPropsType) {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     const handleDrawer = () => {
         setOpen(prevState => !prevState);
     };
 
-    const sideBarIcons = [
-        {id: 1, name: "Заметки", icon: <LightbulbOutlinedIcon/>},
-        {id: 2, name: "Архив", icon: <ArchiveOutlinedIcon/>},
-        {id: 3, name: "Корзина", icon: <DeleteForeverOutlinedIcon/>},
-    ]
 
     return (
         <Box sx={{display: 'flex'}}>
-            <AppBar open={open} color='inherit' style={{boxShadow: 'inset 0 -1px 0 0 #dadce0', height: '65px'}}>
-                <Toolbar>
-                    <IconButton onClick={handleDrawer} edge="start" sx={{marginRight: '36px'}}>
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography style={{marginLeft: '25px', fontSize: '22px'}}>Keep</Typography>
-                    <Search style={{border: '1px #dadce0', marginLeft: '100px', backgroundColor: '#e1e0e0'}}>
-                        <SearchIconWrapper>
-                            <SearchIcon/>
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Поиск"
-                            inputProps={{'aria-label': 'search'}}
-                            onChange={props.onChangeSearchHandler}
-                            value={props.search}
-                        />
-                    </Search>
-                </Toolbar>
-            </AppBar>
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader> </DrawerHeader>
-                <List>
-                    {sideBarIcons.map((icon) => (
-                        <ListItem key={icon.id} disablePadding sx={{display: 'block'}}>
-                            <ListItemButton sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
-                                <ListItemIcon sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
-                                    {icon.icon}
-                                </ListItemIcon>
-                                <ListItemText primary={icon.name} sx={{opacity: open ? 1 : 0}}/>
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
-            </Drawer>
+            <Header open={open}
+                    handleDrawer={handleDrawer}
+                    search={props.search}
+                    onChangeSearchHandler={props.onChangeSearchHandler}
+            />
+            <SideBar open={open}/>
         </Box>
     );
 }
+
+type SideBarType = {
+    open: boolean
+}
+
+export const SideBar = (props: SideBarType) => {
+
+    const sideBarIcons = [
+        {id: 1, name: "Заметки", icon: <LightbulbOutlinedIcon/>},
+        {id: 2, name: "Архив", icon: <ArchiveOutlinedIcon/>},
+        {id: 3, name: "Корзина", icon: <Delete/>},
+    ]
+
+    return <>
+        <Drawer variant="permanent" open={props.open}>
+            <DrawerHeader> </DrawerHeader>
+            <List>
+                {sideBarIcons.map((icon) => (
+                    <ListItem key={icon.id} disablePadding sx={{display: 'block'}}>
+                        <ListItemButton
+                            sx={{minHeight: 48, justifyContent: props.open ? 'initial' : 'center', px: 2.5}}>
+                            <ListItemIcon sx={{minWidth: 0, mr: props.open ? 3 : 'auto', justifyContent: 'center'}}>
+                                {icon.icon}
+                            </ListItemIcon>
+                            <ListItemText primary={icon.name} sx={{opacity: props.open ? 1 : 0}}/>
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </Drawer>
+    </>
+};
+
+
+type HeaderType = {
+    open: boolean
+    handleDrawer: () => void
+    search: string
+    onChangeSearchHandler: (e: ChangeEvent<HTMLInputElement>) => void
+}
+
+export const Header = (props: HeaderType) => {
+    return <>
+        <AppBar open={props.open} color='inherit' style={{boxShadow: 'inset 0 -1px 0 0 #dadce0', height: '65px'}}>
+            <Toolbar>
+                <IconButton onClick={props.handleDrawer} edge="start" sx={{marginRight: '36px'}}>
+                    <MenuIcon/>
+                </IconButton>
+                <Typography style={{marginLeft: '25px', fontSize: '22px'}}>Keep</Typography>
+                <Search style={{border: '1px #dadce0', marginLeft: '100px', backgroundColor: '#e1e0e0'}}>
+                    <SearchIconWrapper>
+                        <SearchIcon/>
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                        placeholder="Поиск"
+                        inputProps={{'aria-label': 'search'}}
+                        onChange={props.onChangeSearchHandler}
+                        value={props.search}
+                    />
+                </Search>
+            </Toolbar>
+        </AppBar>
+    </>
+};
+

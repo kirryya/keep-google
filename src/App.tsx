@@ -9,6 +9,7 @@ import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import {NoteContext, NotesProvider, NoteType} from "./context/Context";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Archive} from "./Archive";
+import {DeleteNotes} from './DeleteNotes';
 
 export function App() {
 
@@ -109,7 +110,7 @@ export const EmptyNotes = () => {
 
 export const Archives = () => {
 
-    const {archives, search } = useContext(NoteContext)
+    const {archives, search} = useContext(NoteContext)
 
     const searched = archives.filter(tl => tl.title.toLowerCase().includes(search.toLowerCase()) || tl.note.toLowerCase().includes(search.toLowerCase()))
 
@@ -137,7 +138,7 @@ export const Trash = () => {
             <Container fixed style={{padding: "274px"}}>
                 {
                     searched.length > 0
-                        ? <WorkSpaceNotes searched={searched}/>
+                        ? <WorkSpaceTrash searched={searched}/>
                         : <EmptyNotes/>
                 }
             </Container>
@@ -168,6 +169,43 @@ export const WorkSpaceArchives = (props: WorkSpaceArchivesPropsType) => {
                                     <Paper style={{padding: "20px", maxWidth: "250px", borderRadius: "8px"}}
                                            elevation={3}>
                                         <Archive
+                                            todolist={tl}
+                                            removeTodolist={removeTodolist}
+                                        />
+                                    </Paper>
+                                </Box>
+                            </Box>
+                        </Grid>
+                    })
+                }
+            </Grid>
+        </div>
+    );
+};
+
+type WorkSpaceTrashPropsType = {
+    searched: NoteType[] | null
+}
+
+export const WorkSpaceTrash = (props: WorkSpaceTrashPropsType) => {
+
+    const {trash, setTrash} = useContext(NoteContext)
+
+    function removeTodolist(id: string) {
+        setTrash(trash.filter(tl => tl.id !== id));
+    }
+
+    return (
+        <div>
+            <Grid container spacing={3}>
+                {
+                    props.searched?.map(tl => {
+                        return <Grid item key={tl.id}>
+                            <Box sx={{display: "flex", width: "100%"}}>
+                                <Box sx={{p: 3, width: "100%"}}>
+                                    <Paper style={{padding: "20px", maxWidth: "250px", borderRadius: "8px"}}
+                                           elevation={3}>
+                                        <DeleteNotes
                                             todolist={tl}
                                             removeTodolist={removeTodolist}
                                         />

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ChangeEvent} from 'react';
+import {ChangeEvent, useContext, useState} from 'react';
 import {alpha, CSSObject, styled, Theme} from '@mui/material/styles';
 import {
     AppBar as MuiAppBar,
@@ -14,6 +14,7 @@ import {
     ListItemIcon,
     ListItemText,
     Toolbar,
+    Tooltip,
     Typography
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -21,6 +22,8 @@ import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import Delete from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
+import {NoteContext} from "../context/Context";
+import {Link} from "react-router-dom";
 
 const drawerWidth = 180;
 
@@ -122,71 +125,34 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     },
 }));
 
-type AppDrawerPropsType = {
-    onChangeSearchHandler: (e: ChangeEvent<HTMLInputElement>) => void
-    search: string
-}
+export function AppDrawer() {
 
-export function AppDrawer(props: AppDrawerPropsType) {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState<boolean>(false);
 
     const handleDrawer = () => {
         setOpen(prevState => !prevState);
     };
 
     return (
-        <Box sx={{display: 'flex'}}>
-            <Header open={open}
-                    handleDrawer={handleDrawer}
-                    onChangeSearchHandler={props.onChangeSearchHandler}
-                    search={props.search}
-            />
+        <Box sx={{display: 'flex', width: '100%'}}>
+            <Header open={open} handleDrawer={handleDrawer}/>
             <SideBar open={open}/>
         </Box>
     );
 }
 
-type SideBarType = {
-    open: boolean
-}
-
-export const SideBar = (props: SideBarType) => {
-
-    const sideBarIcons = [
-        {id: 1, name: "Заметки", icon: <LightbulbOutlinedIcon/>},
-        {id: 2, name: "Архив", icon: <ArchiveOutlinedIcon/>},
-        {id: 3, name: "Корзина", icon: <Delete/>},
-    ]
-
-    return <>
-        <Drawer variant="permanent" open={props.open}>
-            <DrawerHeader> </DrawerHeader>
-            <List>
-                {sideBarIcons.map((icon) => (
-                    <ListItem key={icon.id} disablePadding sx={{display: 'block'}}>
-                        <ListItemButton
-                            sx={{minHeight: 48, justifyContent: props.open ? 'initial' : 'center', px: 2.5}}>
-                            <ListItemIcon sx={{minWidth: 0, mr: props.open ? 3 : 'auto', justifyContent: 'center'}}>
-                                {icon.icon}
-                            </ListItemIcon>
-                            <ListItemText primary={icon.name} sx={{opacity: props.open ? 1 : 0}}/>
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Drawer>
-    </>
-};
-
-
 type HeaderType = {
     open: boolean
     handleDrawer: () => void
-    onChangeSearchHandler: (e: ChangeEvent<HTMLInputElement>) => void
-    search: string
 }
 
 export const Header = (props: HeaderType) => {
+
+    const {search, setSearch} = useContext(NoteContext)
+
+    const onChangeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.currentTarget.value)
+    }
 
     return <>
         <AppBar open={props.open} color='inherit' style={{boxShadow: 'inset 0 -1px 0 0 #dadce0', height: '65px'}}>
@@ -202,8 +168,8 @@ export const Header = (props: HeaderType) => {
                     <StyledInputBase
                         placeholder="Поиск"
                         inputProps={{'aria-label': 'search'}}
-                        onChange={props.onChangeSearchHandler}
-                        value={props.search}
+                        onChange={onChangeSearchHandler}
+                        value={search}
                     />
                 </Search>
             </Toolbar>
@@ -211,3 +177,50 @@ export const Header = (props: HeaderType) => {
     </>
 };
 
+
+type SideBarType = {
+    open: boolean
+}
+
+type LinksType = {
+    id: number
+    name: string
+    icon: any
+    route: string
+}
+
+type SideBarIconsType = LinksType[]
+
+export const SideBar = (props: SideBarType) => {
+
+    const sideBarLinks: SideBarIconsType = [
+        {id: 1, name: "Заметки", icon: <LightbulbOutlinedIcon/>, route: "/"},
+        {id: 2, name: "Архив", icon: <ArchiveOutlinedIcon/>, route: "/archive"},
+        {id: 3, name: "Корзина", icon: <Delete/>, route: "/trash"},
+    ]
+
+    return <>
+        <Drawer variant="permanent" open={props.open}>
+            <DrawerHeader> </DrawerHeader>
+            <List>
+                {sideBarLinks.map((icon) => (
+                    <ListItem key={icon.id} disablePadding sx={{display: 'block'}}>
+                        <Tooltip title={`${icon.name}`} placement="right">
+                            <Link to={`${icon.route}`}
+                                  style={{textDecoration: 'none', display: 'flex', color: 'inherit'}}>
+                                <ListItemButton
+                                    sx={{minHeight: 48, justifyContent: props.open ? 'initial' : 'center', px: 2.5}}>
+                                    <ListItemIcon
+                                        sx={{minWidth: 0, mr: props.open ? 3 : 'auto', justifyContent: 'center'}}>
+                                        {icon.icon}
+                                    </ListItemIcon>
+                                    <ListItemText primary={icon.name} sx={{opacity: props.open ? 1 : 0}}/>
+                                </ListItemButton>
+                            </Link>
+                        </Tooltip>
+                    </ListItem>
+                ))}
+            </List>
+        </Drawer>
+    </>
+};

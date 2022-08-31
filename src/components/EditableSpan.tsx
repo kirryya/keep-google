@@ -3,7 +3,7 @@ import {TextField, Typography} from "@mui/material";
 
 type EditableSpanPropsType = {
     value: string
-    onChange: (newValue: string) => void
+    onChange?: (newValue: string) => void
 }
 
 export function EditableSpan(props: EditableSpanPropsType) {
@@ -17,7 +17,7 @@ export function EditableSpan(props: EditableSpanPropsType) {
     }
     const activateViewMode = () => {
         setEditMode(false);
-        props.onChange(title);
+        props.onChange && props.onChange(title);
     }
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {

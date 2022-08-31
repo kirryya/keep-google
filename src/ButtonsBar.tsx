@@ -8,30 +8,24 @@ import React from "react";
 
 type ButtonsBarType = {
     removeTodolist: () => void
-    addTitle: () => void
-    title: string
+    addTitle?: () => void
+    title?: string
+    moveToArchive: () => void
+    moveToTrash: () => void
 }
 
 export const ButtonsBar = (props: ButtonsBarType) => {
 
-    const onClickDeleteHandler = () => {
-
-    }
-
-    const onClickArchiveHandler = () => {
-
-    }
-
-    return <div>
+    return <>
         <div style={{marginTop: "25px", marginLeft: "-10px"}}>
             <Tooltip title="Переместить в архив">
-                <IconButton onClick={onClickArchiveHandler}>
-                    <ArchiveOutlinedIcon fontSize="small" />
+                <IconButton onClick={props.moveToArchive}>
+                    <ArchiveOutlinedIcon fontSize="small"/>
                 </IconButton>
             </Tooltip>
             <Tooltip title="Переместить в корзину">
-                <IconButton onClick={onClickDeleteHandler}>
-                    <Delete fontSize="small" />
+                <IconButton onClick={props.moveToTrash}>
+                    <Delete fontSize="small"/>
                 </IconButton>
             </Tooltip>
             <Tooltip title="Удалить">
@@ -47,5 +41,5 @@ export const ButtonsBar = (props: ButtonsBarType) => {
                 </Tooltip>
             }
         </div>
-    </div>
+    </>
 };

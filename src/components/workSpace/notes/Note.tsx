@@ -1,10 +1,11 @@
 import {TextField} from '@mui/material';
 import React, {ChangeEvent, useContext, useState} from 'react';
-import {EditableSpan} from './components/EditableSpan';
+import {EditableSpan} from '../../common/EditableSpan';
 import {ButtonsBar} from "./ButtonsBar";
-import {NoteContext, NoteType} from "./context/Context";
+import {NoteContext} from "../../../context";
+import {NoteType} from "../../../types";
 
-type PropsType = {
+type TodolistPropsType = {
     todolist: NoteType
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
@@ -12,7 +13,7 @@ type PropsType = {
     addTodolistTitle: (id: string, newTitle: string) => void
 }
 
-export function Todolist(props: PropsType) {
+export const Note = React.memo((props: TodolistPropsType) => {
 
     const {notes, setArchives, setNotes, setTrash} = useContext(NoteContext)
 
@@ -66,7 +67,7 @@ export function Todolist(props: PropsType) {
                         moveToArchive={onClickArchiveHandler} moveToTrash={onClickTrashHandler}/>
         </div>
     )
-}
+})
 
 
 

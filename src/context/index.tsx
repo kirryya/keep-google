@@ -1,21 +1,5 @@
-import {createContext, Dispatch, ReactNode, SetStateAction, useState} from "react";
-
-export type NoteType = {
-    id: string
-    title: string
-    note: string
-}
-
-type ContextType = {
-    notes: NoteType[]
-    setNotes: Dispatch<SetStateAction<NoteType[]>>
-    archives: NoteType[]
-    setArchives: Dispatch<SetStateAction<NoteType[]>>
-    trash: NoteType[]
-    setTrash: Dispatch<SetStateAction<NoteType[]>>
-    search: string
-    setSearch: Dispatch<SetStateAction<string>>
-}
+import {createContext, ReactNode, useState} from "react";
+import {ContextType, NoteType} from "../types";
 
 export const noteContextDefaultValue: ContextType = {
     notes: [],
@@ -25,7 +9,8 @@ export const noteContextDefaultValue: ContextType = {
     trash: [],
     setTrash: () => [],
     search: "",
-    setSearch: () => {},
+    setSearch: () => {
+    },
 }
 
 export const NoteContext = createContext<ContextType>(noteContextDefaultValue);

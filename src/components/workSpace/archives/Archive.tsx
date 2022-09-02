@@ -1,32 +1,33 @@
 import React, {useContext} from 'react';
-import {NoteContext, NoteType} from "./context/Context";
+import {NoteContext} from "../../../context";
 import {Tooltip, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import {Delete} from "@mui/icons-material";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
-import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import {NoteType} from "../../../types";
 
-type PropsType = {
+type ArchivePropsType = {
     todolist: NoteType
     removeTodolist: (id: string) => void
 }
 
-export function DeleteNotes(props: PropsType) {
+export const Archive = (props: ArchivePropsType) => {
 
-    const {trash, setArchives, setNotes, setTrash} = useContext(NoteContext)
+    const {archives, setArchives, setNotes, setTrash} = useContext(NoteContext)
 
     const removeTodolist = () => {
         props.removeTodolist(props.todolist.id);
     }
 
     const onClickArchiveHandler = () => {
-        setTrash(trash.filter(tl => tl.id !== props.todolist.id))
+        setArchives(archives.filter(tl => tl.id !== props.todolist.id))
         setNotes(prevArr => [props.todolist, ...prevArr])
     }
 
     const onClickTrashHandler = () => {
-        setTrash(trash.filter(tl => tl.id !== props.todolist.id))
-        setArchives(prevArr => [props.todolist, ...prevArr])
+        setArchives(archives.filter(tl => tl.id !== props.todolist.id))
+        setTrash(prevArr => [props.todolist, ...prevArr])
     }
 
     return (
@@ -45,9 +46,9 @@ export function DeleteNotes(props: PropsType) {
                         <LightbulbOutlinedIcon fontSize="small"/>
                     </IconButton>
                 </Tooltip>
-                <Tooltip title="Переместить в архив">
+                <Tooltip title="Переместить в корзину">
                     <IconButton onClick={onClickTrashHandler}>
-                        <ArchiveOutlinedIcon fontSize="small"/>
+                        <Delete fontSize="small"/>
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Удалить">

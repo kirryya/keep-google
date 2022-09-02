@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC, memo} from 'react';
 import {CSSObject, styled, Theme} from '@mui/material/styles';
 import {Drawer as MuiDrawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip} from '@mui/material';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
@@ -63,7 +63,7 @@ type LinksType = {
 
 type SideBarIconsType = LinksType[]
 
-export const SideBar = (props: SideBarType) => {
+export const SideBar: FC<SideBarType> = memo(({open}) => {
 
     const sideBarLinks: SideBarIconsType = [
         {id: 1, name: "Заметки", icon: <LightbulbOutlinedIcon/>, route: "/"},
@@ -72,21 +72,21 @@ export const SideBar = (props: SideBarType) => {
     ]
 
     return <>
-        <Drawer variant="permanent" open={props.open}>
+        <Drawer variant="permanent" open={open}>
             <DrawerHeader> </DrawerHeader>
             <List>
-                {sideBarLinks.map((icon) => (
-                    <ListItem key={icon.id} disablePadding sx={{display: 'block'}}>
-                        <Tooltip title={`${icon.name}`} placement="right">
-                            <Link to={`${icon.route}`}
+                {sideBarLinks.map(({id, name, icon, route}) => (
+                    <ListItem key={id} disablePadding sx={{display: 'block'}}>
+                        <Tooltip disableHoverListener={open} title={`${name}`} placement="right">
+                            <Link to={`${route}`}
                                   style={{textDecoration: 'none', display: 'flex', color: 'inherit'}}>
                                 <ListItemButton
-                                    sx={{minHeight: 48, justifyContent: props.open ? 'initial' : 'center', px: 2.5}}>
+                                    sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5}}>
                                     <ListItemIcon
-                                        sx={{minWidth: 0, mr: props.open ? 3 : 'auto', justifyContent: 'center'}}>
-                                        {icon.icon}
+                                        sx={{minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center'}}>
+                                        {icon}
                                     </ListItemIcon>
-                                    <ListItemText primary={icon.name} sx={{opacity: props.open ? 1 : 0}}/>
+                                    <ListItemText primary={name} sx={{opacity: open ? 1 : 0}}/>
                                 </ListItemButton>
                             </Link>
                         </Tooltip>
@@ -95,4 +95,4 @@ export const SideBar = (props: SideBarType) => {
             </List>
         </Drawer>
     </>
-};
+});

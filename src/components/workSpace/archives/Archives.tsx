@@ -11,15 +11,11 @@ export const Archives = () => {
 
     const searched = createData(archives, search)
 
-    return (
-        <>
-            <Container fixed style={{padding: "274px"}}>
-                {
-                    searched.length > 0
-                        ? <WorkSpaceArchives searched={searched}/>
-                        : <EmptyNotes/>
-                }
-            </Container>
-        </>
-    )
+    return <Container fixed style={{paddingTop: "274px"}}>
+        {
+            searched.length > 0
+                ? <WorkSpaceArchives searched={searched}/>
+                : <EmptyNotes/>
+        }
+    </Container>
 }

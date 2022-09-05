@@ -1,10 +1,10 @@
 import {NoteContext} from "../../../context";
-import React, {useContext} from "react";
+import React, {memo, useContext} from "react";
 import {Box, Grid, Paper} from "@mui/material";
 import {Note} from "./Note";
 import {WorkSpacePropsType} from "../../../types";
 
-export const WorkSpaceNotes: React.FC<WorkSpacePropsType> = React.memo(({searched}) => {
+export const WorkSpaceNotes: React.FC<WorkSpacePropsType> = memo(({searched}) => {
 
     const {notes, setNotes} = useContext(NoteContext)
 
@@ -21,29 +21,27 @@ export const WorkSpaceNotes: React.FC<WorkSpacePropsType> = React.memo(({searche
     }
 
     return (
-        <div>
-            <Grid container spacing={3}>
-                {
-                    searched?.map(({id, title, note }) => {
-                        return <Grid item key={id}>
-                            <Box sx={{display: "flex", width: "100%"}}>
-                                <Box sx={{p: 3, width: "100%"}}>
-                                    <Paper style={{padding: "20px", maxWidth: "250px", borderRadius: "8px"}}
-                                           elevation={3}>
-                                        <Note
-                                            todolist={{id, title, note}}
-                                            removeTodolist={removeTodolist}
-                                            changeTodolistTitle={changeTodolistTitle}
-                                            changeTodolistNote={changeTodolistNote}
-                                            addTodolistTitle={changeTodolistTitle}
-                                        />
-                                    </Paper>
-                                </Box>
+        <Grid container spacing={3}>
+            {
+                searched?.map(({id, title, note}) => {
+                    return <Grid item key={id}>
+                        <Box sx={{display: "flex", width: "100%"}}>
+                            <Box sx={{p: 3, width: "100%"}}>
+                                <Paper style={{padding: "20px", maxWidth: "250px", borderRadius: "8px"}}
+                                       elevation={3}>
+                                    <Note
+                                        todolist={{id, title, note}}
+                                        removeTodolist={removeTodolist}
+                                        changeTodolistTitle={changeTodolistTitle}
+                                        changeTodolistNote={changeTodolistNote}
+                                        addTodolistTitle={changeTodolistTitle}
+                                    />
+                                </Paper>
                             </Box>
-                        </Grid>
-                    })
-                }
-            </Grid>
-        </div>
+                        </Box>
+                    </Grid>
+                })
+            }
+        </Grid>
     );
 });

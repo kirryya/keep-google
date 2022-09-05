@@ -13,26 +13,24 @@ export const WorkSpaceArchives: FC<WorkSpacePropsType> = memo(({searched}) => {
     }
 
     return (
-        <div>
-            <Grid container spacing={3}>
-                {
-                    searched?.map(({id, title, note}) => {
-                        return <Grid item key={id}>
-                            <Box sx={{display: "flex", width: "100%"}}>
-                                <Box sx={{p: 3, width: "100%"}}>
-                                    <Paper style={{padding: "20px", maxWidth: "250px", borderRadius: "8px"}}
-                                           elevation={3}>
-                                        <Archive
-                                            todolist={{id, title, note}}
-                                            removeTodolist={removeTodolist}
-                                        />
-                                    </Paper>
-                                </Box>
+        <Grid container spacing={3}>
+            {
+                searched?.map(({id, title, note}) => {
+                    return <Grid item key={id}>
+                        <Box sx={{display: "flex", width: "100%"}}>
+                            <Box sx={{p: 3, width: "100%"}}>
+                                <Paper style={{padding: "20px", maxWidth: "250px", borderRadius: "8px"}}
+                                       elevation={3}>
+                                    <Archive
+                                        todolist={{id, title, note}}
+                                        removeTodolist={removeTodolist}
+                                    />
+                                </Paper>
                             </Box>
-                        </Grid>
-                    })
-                }
-            </Grid>
-        </div>
+                        </Box>
+                    </Grid>
+                })
+            }
+        </Grid>
     );
 });

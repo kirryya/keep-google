@@ -1,49 +1,45 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, FC, memo, useState} from 'react';
 import {ClickAwayListener, TextField, Tooltip} from "@mui/material";
 import LoupeOutlinedIcon from '@mui/icons-material/LoupeOutlined';
+import {AddItemFormType} from "./types";
 
-type AddItemFormPropsType = {
-    addItem: (title: string, note: string) => void
-    style?: any
-}
-
-export function AddItemForm(props: AddItemFormPropsType) {
+export const AddItemForm: FC<AddItemFormType> = memo(({addItem}) => {
 
     const [note, setNote] = useState("")
     const [title, setTitle] = useState("")
     const [error, setError] = useState<string | null>(null)
     const [textField, setTextField] = useState<boolean>(false)
 
-    const onClickHandler = () => {
+    const onClickHandle = () => {
         setTextField(true)
     }
 
-    const onClickAwayHandler = () => {
+    const onClickAwayHandle = () => {
         setTextField(false)
     }
 
-    const addItem = () => {
+    const addItemHandle = () => {
         if (note.trim() !== "") {
-            props.addItem(title, note);
+            addItem(title, note);
             setNote("");
             setTitle("")
             setError(null)
             setTextField(false)
         } else {
-            setError("Обязательно!");
+            setError("Обязательное поле!");
         }
     }
 
-    const onChangeNoteHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeNoteHandle = (e: ChangeEvent<HTMLInputElement>) => {
         setNote(e.currentTarget.value)
     }
 
-    const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeTitleHandle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
     return (
-        <ClickAwayListener onClickAway={onClickAwayHandler}>
+        <ClickAwayListener onClickAway={onClickAwayHandle}>
             <div style={{
                 display: "flex",
                 margin: "auto",
@@ -59,28 +55,28 @@ export function AddItemForm(props: AddItemFormPropsType) {
                             placeholder="Введите заголовок"
                             variant="standard"
                             value={title}
-                            onChange={onChangeTitleHandler}
+                            onChange={onChangeTitleHandle}
                             InputProps={{disableUnderline: true}}
                             style={{marginBottom: 10}}
                         />
                     }
                     <TextField placeholder="Заметка..."
                                variant="standard"
-                               onClick={onClickHandler}
+                               onClick={onClickHandle}
                                multiline maxRows={Infinity}
                                helperText={error}
                                error={!!error}
                                value={note}
-                               onChange={onChangeNoteHandler}
+                               onChange={onChangeNoteHandle}
                                InputProps={{disableUnderline: true}}
                     />
                     {textField &&
                         <Tooltip title="Добавить заметку">
-                            <LoupeOutlinedIcon onClick={addItem} fontSize={"medium"} style={{marginTop: "25px"}}/>
+                            <LoupeOutlinedIcon onClick={addItemHandle} fontSize={"medium"} style={{marginTop: "25px"}}/>
                         </Tooltip>
                     }
                 </div>
             </div>
         </ClickAwayListener>
     )
-}
+});

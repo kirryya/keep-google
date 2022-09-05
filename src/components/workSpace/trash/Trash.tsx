@@ -12,14 +12,12 @@ export const Trash = () => {
     const searched = createData(trash, search)
 
     return (
-        <>
-            <Container fixed style={{padding: "274px"}}>
-                {
-                    searched.length > 0
-                        ? <WorkSpaceTrash searched={searched}/>
-                        : <EmptyNotes/>
-                }
-            </Container>
-        </>
+        <Container fixed style={{paddingTop: "274px"}}>
+            {
+                searched.length > 0
+                    ? <WorkSpaceTrash searched={searched}/>
+                    : <EmptyNotes/>
+            }
+        </Container>
     )
 }

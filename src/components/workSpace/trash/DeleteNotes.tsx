@@ -1,65 +1,60 @@
-import React, {useContext} from 'react';
+import React, {FC, memo, ReactElement, useContext} from 'react';
 import {NoteContext} from "../../../context";
 import {Tooltip, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
-import {NoteType} from "../../../types";
+import {DeleteNotesType} from "./types";
 
-type DeleteNotesPropsType = {
-    todolist: NoteType
-    removeTodolist: (id: string) => void
-}
-
-export function DeleteNotes(props: DeleteNotesPropsType) {
+export const DeleteNotes: FC<DeleteNotesType> = memo(({todolist, removeTodolist }): ReactElement => {
 
     const {trash, setArchives, setNotes, setTrash} = useContext(NoteContext)
 
-    const removeTodolist = () => {
-        props.removeTodolist(props.todolist.id);
+    const removeTodolistHandle = () => {
+        removeTodolist(todolist.id);
     }
 
-    const onClickArchiveHandler = () => {
-        setTrash(trash.filter(tl => tl.id !== props.todolist.id))
-        setNotes(prevArr => [props.todolist, ...prevArr])
+    const onClickNoteHandle = () => {
+        setTrash(trash.filter(tl => tl.id !== todolist.id))
+        setNotes(prevArr => [todolist, ...prevArr])
     }
 
-    const onClickTrashHandler = () => {
-        setTrash(trash.filter(tl => tl.id !== props.todolist.id))
-        setArchives(prevArr => [props.todolist, ...prevArr])
+    const onClickArchiveHandle = () => {
+        setTrash(trash.filter(tl => tl.id !== todolist.id))
+        setArchives(prevArr => [todolist, ...prevArr])
     }
 
     return (
         <div>
-            <div style={{minWidth: "240px", maxWidth: "240px"}}>
+            <div style={{minWidth: "240px"}}>
                 <h2>
-                    <Typography> {props.todolist.title} </Typography>
+                    <Typography> {todolist.title} </Typography>
                 </h2>
                 <div>
-                    <Typography> {props.todolist.note} </Typography>
+                    <Typography> {todolist.note} </Typography>
                 </div>
             </div>
             <div style={{marginTop: "25px", marginLeft: "-10px"}}>
                 <Tooltip title="Переместить в заметки">
-                    <IconButton onClick={onClickArchiveHandler}>
+                    <IconButton onClick={onClickNoteHandle}>
                         <LightbulbOutlinedIcon fontSize="small"/>
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Переместить в архив">
-                    <IconButton onClick={onClickTrashHandler}>
+                    <IconButton onClick={onClickArchiveHandle}>
                         <ArchiveOutlinedIcon fontSize="small"/>
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Удалить">
-                    <IconButton onClick={removeTodolist}>
+                    <IconButton onClick={removeTodolistHandle}>
                         <HighlightOffOutlinedIcon fontSize="small"/>
                     </IconButton>
                 </Tooltip>
             </div>
         </div>
     )
-}
+})
 
 
 

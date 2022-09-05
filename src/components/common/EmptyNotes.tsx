@@ -8,5 +8,5 @@ export const EmptyNotes = () => {
             <LightbulbOutlinedIcon style={{fontSize: "120px", color: "#dadce0"}}/>
             <Typography style={{fontSize: "22px", color: "#96969a"}}>Здесь будут ваши заметки</Typography>
         </Grid>
-    );
+    )
 };

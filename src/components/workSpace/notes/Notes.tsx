@@ -17,7 +17,7 @@ export const Notes = () => {
         setNotes([{id: v1(), title, note}, ...notes]);
     }
 
-    return <>
+    return (
         <Container fixed>
             <Grid container style={{padding: "100px"}}>
                 <AddItemForm addItem={addTodolist}/>
@@ -28,5 +28,5 @@ export const Notes = () => {
                     : <EmptyNotes/>
             }
         </Container>
-    </>
+    )
 };

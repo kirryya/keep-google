@@ -1,23 +1,19 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, FC, memo, useState} from 'react';
 import {TextField, Typography} from "@mui/material";
+import {EditableSpanType} from "./types";
 
-type EditableSpanPropsType = {
-    value: string
-    onChange?: (newValue: string) => void
-}
-
-export function EditableSpan(props: EditableSpanPropsType) {
+export const EditableSpan: FC<EditableSpanType> = memo(({value, onChange}) => {
 
     let [editMode, setEditMode] = useState(false);
-    let [title, setTitle] = useState(props.value);
+    let [title, setTitle] = useState(value);
 
     const activateEditMode = () => {
         setEditMode(true);
-        setTitle(props.value);
+        setTitle(value);
     }
     const activateViewMode = () => {
         setEditMode(false);
-        props.onChange && props.onChange(title);
+        onChange && onChange(title);
     }
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,10 +25,9 @@ export function EditableSpan(props: EditableSpanPropsType) {
             ? <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} multiline
                          maxRows={Infinity}/>
             : <Typography onDoubleClick={activateEditMode}
-                          style={{
-                              maxWidth: "250px",
-                              whiteSpace: "pre-wrap",
-                              wordBreak: "break-all"
-                          }}>{props.value}</Typography>
+                          style={{maxWidth: "250px", whiteSpace: "pre-wrap", wordBreak: "break-all"}}
+            >
+                {value}
+            </Typography>
     )
-}
+});

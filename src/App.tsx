@@ -12,9 +12,9 @@ export function App() {
             <NotesProvider>
                 <AppDrawer/>
                 <Routes>
-                    <Route path="/" element={<Notes/>}/>
-                    <Route path="/archive" element={<Archives/>}/>
-                    <Route path="/trash" element={<Trash/>}/>
+                    <Route path="/" element={<Notes />}/>
+                    <Route path="/archive" element={<Archives />}/>
+                    <Route path="/trash" element={<Trash />}/>
                 </Routes>
             </NotesProvider>
         </BrowserRouter>

@@ -4,6 +4,7 @@ import {EditableSpan} from '../../common/EditableSpan';
 import {ButtonsBar} from "./ButtonsBar";
 import {NoteContext} from "../../../context";
 import {TodolistPropsType} from "./types";
+import {ReturnComponentType} from "../../../types/ReturnComponentType";
 
 export const Note: FC<TodolistPropsType> = React.memo(({
                                                            todolist,
@@ -11,7 +12,7 @@ export const Note: FC<TodolistPropsType> = React.memo(({
                                                            changeTodolistTitle,
                                                            addTodolistTitle,
                                                            changeTodolistNote
-                                                       }) => {
+                                                       }): ReturnComponentType => {
 
     const {notes, setArchives, setNotes, setTrash} = useContext(NoteContext)
 
@@ -55,7 +56,7 @@ export const Note: FC<TodolistPropsType> = React.memo(({
 
     return (
         <div>
-            <div style={{minWidth: "240px", maxWidth: "240px"}}>
+            <div style={{minWidth: "250px", maxWidth: "250px"}}>
                 {newTitle &&
                     <TextField value={todolist.title} onChange={addTodolistTitleHandle} onBlur={closeAddTitle}/>}
                 <h2>

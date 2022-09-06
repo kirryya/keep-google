@@ -1,3 +1,5 @@
+import {ReactElement} from "react";
+
 export type SideBarType = {
     open: boolean
 }
@@ -5,7 +7,7 @@ export type SideBarType = {
 type LinksType = {
     id: number
     name: string
-    icon: any
+    icon: ReactElement
     route: string
 }
 

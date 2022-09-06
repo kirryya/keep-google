@@ -46,8 +46,8 @@ export const AddItemForm: FC<AddItemFormType> = memo(({addItem}) => {
                 margin: "auto",
                 boxShadow: '1px 3px 1em 0 #dadce0',
                 border: '1px solid #dadce0',
-                padding: "20px",
-                width: "500px",
+                padding: "10px",
+                width: "250px",
                 borderRadius: "6px"
             }}>
                 <div style={{display: "flex", flexDirection: "column"}}>
@@ -64,12 +64,14 @@ export const AddItemForm: FC<AddItemFormType> = memo(({addItem}) => {
                     <TextField placeholder="Заметка..."
                                variant="standard"
                                onClick={onClickHandle}
-                               multiline maxRows={Infinity}
+                               multiline
+                               maxRows={Infinity}
                                helperText={error}
                                error={!!error}
                                value={note}
                                onChange={onChangeNoteHandle}
                                InputProps={{disableUnderline: true}}
+                               style={{width: '250px'}}
                     />
                     {textField &&
                         <Tooltip title="Добавить заметку">

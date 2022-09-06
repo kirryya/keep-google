@@ -1,13 +1,14 @@
-import React, {FC, memo, ReactElement} from 'react';
+import React, {FC, memo} from 'react';
 import {List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip} from '@mui/material';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import Delete from '@mui/icons-material/Delete';
 import {Link} from "react-router-dom";
 import {Drawer, DrawerHeader} from "./SidebarStyle"
-import {SideBarIconsType, SideBarType } from './types';
+import {SideBarIconsType, SideBarType } from '../types';
+import {ReturnComponentType} from "../../../types/ReturnComponentType";
 
-export const SideBar: FC<SideBarType> = memo(({open}): ReactElement => {
+export const SideBar: FC<SideBarType> = memo(({open}): ReturnComponentType => {
 
     const sideBarLinks: SideBarIconsType = [
         {id: 1, name: "Заметки", icon: <LightbulbOutlinedIcon/>, route: "/"},
@@ -15,13 +16,13 @@ export const SideBar: FC<SideBarType> = memo(({open}): ReactElement => {
         {id: 3, name: "Корзина", icon: <Delete/>, route: "/trash"},
     ]
 
-    return <>
-        <Drawer variant="permanent" open={open}>
+    return (
+        <Drawer variant='permanent' open={open}>
             <DrawerHeader> </DrawerHeader>
             <List>
                 {sideBarLinks.map(({id, name, icon, route}) => (
                     <ListItem key={id} disablePadding sx={{display: 'block'}}>
-                        <Tooltip disableHoverListener={open} title={`${name}`} placement="right">
+                        <Tooltip disableHoverListener={open} title={`${name}`} placement='right'>
                             <Link to={`${route}`}
                                   style={{textDecoration: 'none', display: 'flex', color: 'inherit'}}>
                                 <ListItemButton
@@ -38,5 +39,5 @@ export const SideBar: FC<SideBarType> = memo(({open}): ReactElement => {
                 ))}
             </List>
         </Drawer>
-    </>
+    )
 });

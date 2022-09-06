@@ -23,7 +23,7 @@ export const EditableSpan: FC<EditableSpanType> = memo(({value, onChange}) => {
     return (
         editMode
             ? <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} multiline
-                         maxRows={Infinity}/>
+                         maxRows={Infinity} style={{width: '250px'}}/>
             : <Typography onDoubleClick={activateEditMode}
                           style={{maxWidth: "250px", whiteSpace: "pre-wrap", wordBreak: "break-all"}}
             >

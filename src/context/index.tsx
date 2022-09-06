@@ -1,5 +1,6 @@
 import {createContext, ReactNode, useState} from "react";
 import {ContextType, NoteType} from "../types";
+import {ReturnComponentType} from "../types/ReturnComponentType";
 
 export const noteContextDefaultValue: ContextType = {
     notes: [],
@@ -15,7 +16,7 @@ export const noteContextDefaultValue: ContextType = {
 
 export const NoteContext = createContext<ContextType>(noteContextDefaultValue);
 
-export const NotesProvider = ({children}: { children: ReactNode }) => {
+export const NotesProvider = ({children}: { children: ReactNode }): ReturnComponentType => {
     const [notes, setNotes] = useState<NoteType[]>([]);
     const [archives, setArchives] = useState<NoteType[]>([]);
     const [trash, setTrash] = useState<NoteType[]>([]);

@@ -28,7 +28,7 @@ export const WorkSpaceNotes: React.FC<WorkSpacePropsType> = memo(({searched}) =>
                     return <Grid item key={id}>
                         <Box sx={{display: "flex", width: "100%"}}>
                             <Box sx={{p: 3, width: "100%"}}>
-                                <Paper style={{padding: "20px", maxWidth: "250px", borderRadius: "8px"}}
+                                <Paper style={{padding: "20px", maxWidth: "260px", borderRadius: "8px"}}
                                        elevation={3}>
                                     <Note
                                         todolist={{id, title, note}}

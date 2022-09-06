@@ -29,10 +29,10 @@ export const DeleteNotes: FC<DeleteNotesType> = memo(({todolist, removeTodolist 
         <div>
             <div style={{minWidth: "240px"}}>
                 <h2>
-                    <Typography> {todolist.title} </Typography>
+                    <Typography  style={{maxWidth: "250px", whiteSpace: "pre-wrap", wordBreak: "break-all"}}> {todolist.title} </Typography>
                 </h2>
                 <div>
-                    <Typography> {todolist.note} </Typography>
+                    <Typography  style={{maxWidth: "250px", whiteSpace: "pre-wrap", wordBreak: "break-all"}}> {todolist.note} </Typography>
                 </div>
             </div>
             <div style={{marginTop: "25px", marginLeft: "-10px"}}>

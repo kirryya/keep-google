@@ -2,8 +2,8 @@ import React, {useContext} from "react";
 import {NoteContext} from "../../../context";
 import {Container} from "@mui/material";
 import {WorkSpaceArchives} from "./WorkSpaceArchives";
-import {EmptyNotes} from "../../common/EmptyNotes";
 import {createData} from "../../../utils/createData";
+import {WorkSpace} from "../../../hoc/WorkSpace";
 
 export const Archives = () => {
 
@@ -11,11 +11,9 @@ export const Archives = () => {
 
     const searched = createData(archives, search)
 
-    return <Container fixed style={{paddingTop: "274px"}}>
-        {
-            searched.length > 0
-                ? <WorkSpaceArchives searched={searched}/>
-                : <EmptyNotes/>
-        }
-    </Container>
-}
+    return (
+        <Container fixed style={{paddingTop: "274px"}}>
+            <WorkSpace searched={searched} Component={WorkSpaceArchives}/>
+        </Container>
+    )
+};

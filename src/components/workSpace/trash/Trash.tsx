@@ -2,8 +2,8 @@ import React, {useContext} from "react";
 import {NoteContext} from "../../../context";
 import {Container} from "@mui/material";
 import {WorkSpaceTrash} from "./WorkSpaceTrash";
-import {EmptyNotes} from "../../common/EmptyNotes";
 import {createData} from "../../../utils/createData";
+import {WorkSpace} from "../../../hoc/WorkSpace";
 
 export const Trash = () => {
 
@@ -13,11 +13,7 @@ export const Trash = () => {
 
     return (
         <Container fixed style={{paddingTop: "274px"}}>
-            {
-                searched.length > 0
-                    ? <WorkSpaceTrash searched={searched}/>
-                    : <EmptyNotes/>
-            }
+            <WorkSpace searched={searched} Component={WorkSpaceTrash}/>
         </Container>
     )
 }

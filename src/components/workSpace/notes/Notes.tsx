@@ -4,8 +4,8 @@ import {v1} from "uuid";
 import {Container, Grid} from "@mui/material";
 import {AddItemForm} from "../../common/AddItemForm";
 import {WorkSpaceNotes} from "./WorkSpaceNotes";
-import {EmptyNotes} from "../../common/EmptyNotes";
 import {createData} from "../../../utils/createData";
+import {WorkSpace} from "../../../hoc/WorkSpace";
 
 export const Notes = () => {
 
@@ -22,11 +22,7 @@ export const Notes = () => {
             <Grid container style={{padding: "100px"}}>
                 <AddItemForm addItem={addTodolist}/>
             </Grid>
-            {
-                searched.length > 0
-                    ? <WorkSpaceNotes searched={searched}/>
-                    : <EmptyNotes/>
-            }
+            <WorkSpace searched={searched} Component={WorkSpaceNotes}/>
         </Container>
     )
 };

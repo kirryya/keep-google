@@ -12,7 +12,7 @@ import { ReturnComponentType } from '../../../types/ReturnComponentType';
 import { DeleteNotesType } from './types';
 
 export const DeleteNotes: FC<DeleteNotesType> = memo(
-  ({ todolist, removeTodolist }): ReturnComponentType => {
+  ({ todolist, removeTodolist  }): ReturnComponentType => {
     const { trash, setArchives, setNotes, setTrash } = useContext(NoteContext);
 
     const removeTodolistHandle = (): void => {

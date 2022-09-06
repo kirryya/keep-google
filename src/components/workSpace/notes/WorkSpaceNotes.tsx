@@ -1,24 +1,25 @@
 import {NoteContext} from "../../../context";
-import React, {memo, useContext} from "react";
+import React, {memo, useCallback, useContext} from "react";
 import {Box, Grid, Paper} from "@mui/material";
 import {Note} from "./Note";
 import {WorkSpacePropsType} from "../../../types";
 
 export const WorkSpaceNotes: React.FC<WorkSpacePropsType> = memo(({searched}) => {
 
+    console.log("notes")
     const {notes, setNotes} = useContext(NoteContext)
 
-    function removeTodolist(id: string) {
+    const removeTodolist = useCallback((id: string) => {
         setNotes(notes.filter(tl => tl.id !== id));
-    }
+    }, [notes, setNotes])
 
-    function changeTodolistTitle(id: string, title: string) {
+    const changeTodolistTitle = useCallback((id: string, title: string) => {
         setNotes(notes.map(tl => tl.id === id ? {...tl, title} : tl));
-    }
+    }, [notes, setNotes])
 
-    function changeTodolistNote(id: string, note: string) {
+    const changeTodolistNote = useCallback((id: string, note: string) => {
         setNotes(notes.map(tl => tl.id === id ? {...tl, note} : tl));
-    }
+    }, [notes, setNotes])
 
     return (
         <Grid container spacing={3}>

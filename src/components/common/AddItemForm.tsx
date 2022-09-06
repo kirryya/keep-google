@@ -4,6 +4,7 @@ import LoupeOutlinedIcon from '@mui/icons-material/LoupeOutlined';
 import {AddItemFormType} from "./types";
 
 export const AddItemForm: FC<AddItemFormType> = memo(({addItem}) => {
+    console.log("addItemForm")
 
     const [note, setNote] = useState("")
     const [title, setTitle] = useState("")

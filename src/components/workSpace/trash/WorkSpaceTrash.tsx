@@ -1,5 +1,5 @@
 import {NoteContext} from "../../../context";
-import React, {memo, ReactElement, useContext} from "react";
+import React, {memo, ReactElement, useCallback, useContext} from "react";
 import {Box, Grid, Paper} from "@mui/material";
 import {DeleteNotes} from "./DeleteNotes";
 import {WorkSpacePropsType} from "../../../types";
@@ -8,9 +8,9 @@ export const WorkSpaceTrash: React.FC<WorkSpacePropsType> = memo(({searched}): R
 
     const {trash, setTrash} = useContext(NoteContext)
 
-    function removeTodolist(id: string) {
+    const removeTodolist = useCallback((id: string) => {
         setTrash(trash.filter(tl => tl.id !== id));
-    }
+    }, [trash, setTrash])
 
     return (
         <Grid container spacing={3}>

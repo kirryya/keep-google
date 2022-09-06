@@ -1,4 +1,4 @@
-import React, {FC, memo, useContext} from 'react';
+import React, {FC, memo, useCallback, useContext} from 'react';
 import {NoteContext} from "../../../context";
 import {Tooltip, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -11,19 +11,19 @@ export const Archive: FC<ArchiveType> = memo(({todolist, removeTodolist}) => {
 
     const {archives, setArchives, setNotes, setTrash} = useContext(NoteContext)
 
-    const removeTodolistHandle = () => {
+    const removeTodolistHandle = useCallback(() => {
         removeTodolist(todolist.id);
-    }
+    }, [removeTodolist, todolist.id])
 
-    const onClickNoteHandle = () => {
+    const onClickNoteHandle = useCallback(() => {
         setArchives(archives.filter(tl => tl.id !== todolist.id))
         setNotes(prevArr => [todolist, ...prevArr])
-    }
+    }, [setArchives, archives, setNotes, todolist])
 
-    const onClickTrashHandle = () => {
+    const onClickTrashHandle = useCallback(() => {
         setArchives(archives.filter(tl => tl.id !== todolist.id))
         setTrash(prevArr => [todolist, ...prevArr])
-    }
+    }, [setArchives, archives, todolist, setTrash])
 
     return (
         <div>

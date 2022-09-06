@@ -1,4 +1,4 @@
-import React, {Component, FC} from 'react';
+import React, {FC} from 'react';
 import {EmptyNotes} from "../components/common/EmptyNotes";
 import {WorkSpaceType} from './types';
 

@@ -1,19 +1,17 @@
 import {TextField} from '@mui/material';
-import React, {ChangeEvent, useContext, useState} from 'react';
+import React, {ChangeEvent, FC, useCallback, useContext, useState} from 'react';
 import {EditableSpan} from '../../common/EditableSpan';
 import {ButtonsBar} from "./ButtonsBar";
 import {NoteContext} from "../../../context";
-import {NoteType} from "../../../types";
+import {TodolistPropsType} from "./types";
 
-type TodolistPropsType = {
-    todolist: NoteType
-    removeTodolist: (id: string) => void
-    changeTodolistTitle: (id: string, newTitle: string) => void
-    changeTodolistNote: (id: string, newNote: string) => void
-    addTodolistTitle: (id: string, newTitle: string) => void
-}
-
-export const Note = React.memo((props: TodolistPropsType) => {
+export const Note: FC<TodolistPropsType> = React.memo(({
+                                                           todolist,
+                                                           removeTodolist,
+                                                           changeTodolistTitle,
+                                                           addTodolistTitle,
+                                                           changeTodolistNote
+                                                       }) => {
 
     const {notes, setArchives, setNotes, setTrash} = useContext(NoteContext)
 
@@ -26,45 +24,49 @@ export const Note = React.memo((props: TodolistPropsType) => {
         setNewTitle(false)
     }
 
-    const removeTodolist = () => {
-        props.removeTodolist(props.todolist.id);
-    }
+    const removeTodolistHandle = useCallback(() => {
+        removeTodolist(todolist.id);
+    }, [removeTodolist, todolist.id])
 
-    const addTodolistTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        props.changeTodolistTitle(props.todolist.id, e.currentTarget.value);
-    }
-    const changeTodolistTitle = (title: string) => {
-        props.changeTodolistTitle(props.todolist.id, title);
-    }
+    const addTodolistTitleHandle = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        addTodolistTitle(todolist.id, e.currentTarget.value);
+    }, [addTodolistTitle, todolist.id])
 
-    const changeTodolistNote = (note: string) => {
-        props.changeTodolistNote(props.todolist.id, note);
-    }
+    const changeTodolistTitleHandle = useCallback((title: string) => {
+        changeTodolistTitle(todolist.id, title);
+    }, [changeTodolistTitle, todolist.id])
 
-    const onClickArchiveHandler = () => {
-        setNotes(notes.filter(tl => tl.id !== props.todolist.id))
-        setArchives(prevArr => [props.todolist, ...prevArr])
-    }
 
-    const onClickTrashHandler = () => {
-        setNotes(notes.filter(tl => tl.id !== props.todolist.id))
-        setTrash(prevArr => [props.todolist, ...prevArr])
-    }
+    const changeTodolistNoteHandle = useCallback((note: string) => {
+        changeTodolistNote(todolist.id, note);
+    }, [changeTodolistNote, todolist.id])
+
+
+    const onClickArchiveHandle = useCallback(() => {
+        setNotes(notes.filter(tl => tl.id !== todolist.id))
+        setArchives(prevArr => [todolist, ...prevArr])
+    }, [setNotes, setArchives, notes, todolist])
+
+
+    const onClickTrashHandle = useCallback(() => {
+        setNotes(notes.filter(tl => tl.id !== todolist.id))
+        setTrash(prevArr => [todolist, ...prevArr])
+    }, [setNotes, setTrash, notes, todolist])
 
     return (
         <div>
             <div style={{minWidth: "240px", maxWidth: "240px"}}>
                 {newTitle &&
-                    <TextField value={props.todolist.title} onChange={addTodolistTitle} onBlur={closeAddTitle}/>}
+                    <TextField value={todolist.title} onChange={addTodolistTitleHandle} onBlur={closeAddTitle}/>}
                 <h2>
-                    {!newTitle && <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>}
+                    {!newTitle && <EditableSpan value={todolist.title} onChange={changeTodolistTitleHandle}/>}
                 </h2>
                 <div>
-                    <EditableSpan value={props.todolist.note} onChange={changeTodolistNote}/>
+                    <EditableSpan value={todolist.note} onChange={changeTodolistNoteHandle}/>
                 </div>
             </div>
-            <ButtonsBar removeTodolist={removeTodolist} addTitle={addTitle} title={props.todolist.title}
-                        moveToArchive={onClickArchiveHandler} moveToTrash={onClickTrashHandler}/>
+            <ButtonsBar removeTodolist={removeTodolistHandle} addTitle={addTitle} title={todolist.title}
+                        moveToArchive={onClickArchiveHandle} moveToTrash={onClickTrashHandle}/>
         </div>
     )
 })

@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { Box } from '@mui/material';
 
-import { ReturnComponentType } from '../../types/ReturnComponentType';
+import { ReturnComponentType } from '../../types';
 
 import { Header } from './header/Header';
 import { SideBar } from './header/Sidebar';
 
-export const AppDrawer = (): ReturnComponentType => {
+export const AppDrawer: FC = (): ReturnComponentType => {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleDrawer = (): void => {

@@ -1,6 +1,6 @@
-import {NoteType} from "../../../../types";
+import { NoteType } from '../../../../types';
 
 export type ArchiveType = {
-    todolist: NoteType
-    removeTodolist: (id: string) => void
-}
+  todolist: NoteType;
+  removeTodolist: (id: string) => void;
+};

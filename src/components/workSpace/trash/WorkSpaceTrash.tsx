@@ -2,19 +2,18 @@ import React, { memo, useCallback, useContext } from 'react';
 
 import { Box, Grid, Paper } from '@mui/material';
 
-import { NoteContext } from '../../../context';
-import { WorkSpacePropsType } from '../../../types';
-import { ReturnComponentType } from '../../../types/ReturnComponentType';
+import { NoteContext } from '../../../context/Context';
+import { ReturnComponentType, WorkSpacePropsType } from '../../../types';
 
 import { DeleteNotes } from './DeleteNotes';
 
 export const WorkSpaceTrash: React.FC<WorkSpacePropsType> = memo(
-  ({ searched }): ReturnComponentType => {
+  ({ searched }: WorkSpacePropsType): ReturnComponentType => {
     const { trash, setTrash } = useContext(NoteContext);
 
     const removeTodolist = useCallback(
       (id: string) => {
-        setTrash(trash.filter(tl => tl.id !== id));
+        setTrash(trash.filter((tl: { id: string }) => tl.id !== id));
       },
       [trash, setTrash],
     );

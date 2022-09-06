@@ -1,19 +1,22 @@
-import React, {useContext} from "react";
-import {NoteContext} from "../../../context";
-import {Container} from "@mui/material";
-import {WorkSpaceArchives} from "./WorkSpaceArchives";
-import {createData} from "../../../utils/createData";
-import {WorkSpace} from "../../../hoc/WorkSpace";
+import React, { FC, useContext } from 'react';
 
-export const Archives = () => {
+import { Container } from '@mui/material';
 
-    const {archives, search} = useContext(NoteContext)
+import { NoteContext } from '../../../context/Context';
+import { WorkSpace } from '../../../hoc/WorkSpace';
+import { ReturnComponentType } from '../../../types';
+import { createData } from '../../../utils/createData';
 
-    const searched = createData(archives, search)
+import { WorkSpaceArchives } from './WorkSpaceArchives';
 
-    return (
-        <Container fixed style={{paddingTop: "274px"}}>
-            <WorkSpace searched={searched} Component={WorkSpaceArchives}/>
-        </Container>
-    )
+export const Archives: FC = (): ReturnComponentType => {
+  const { archives, search } = useContext(NoteContext);
+
+  const searched = createData(archives, search);
+
+  return (
+    <Container fixed style={{ paddingTop: '274px' }}>
+      <WorkSpace searched={searched} Component={WorkSpaceArchives} />
+    </Container>
+  );
 };

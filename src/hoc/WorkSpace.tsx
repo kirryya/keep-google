@@ -1,10 +1,13 @@
-import React, {FC} from 'react';
-import {EmptyNotes} from "../components/common/EmptyNotes";
-import {WorkSpaceType} from './types';
+import React, { FC } from 'react';
 
-export const WorkSpace: FC<WorkSpaceType> = ({Component, searched}) => {
+import { EmptyNotes } from '../components/common/EmptyNotes';
 
-    return (
-        searched && searched.length > 0 ? <Component searched={searched}/> : <EmptyNotes/>
-    );
+import { WorkSpaceType } from './types';
+
+export const WorkSpace: FC<WorkSpaceType> = ({ Component, searched }) => {
+  return searched && searched.length > 0 ? (
+    <Component searched={searched} />
+  ) : (
+    <EmptyNotes />
+  );
 };

@@ -1,14 +1,14 @@
-import {ReactElement} from "react";
+import { ReactElement } from 'react';
 
 export type SideBarType = {
-    open: boolean
-}
+  open: boolean;
+};
 
 type LinksType = {
-    id: number
-    name: string
-    icon: ReactElement
-    route: string
-}
+  id: number;
+  name: string;
+  icon: ReactElement;
+  route: string;
+};
 
-export type SideBarIconsType = LinksType[]
+export type SideBarIconsType = LinksType[];

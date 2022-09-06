@@ -1,20 +1,22 @@
-import React, {memo, useContext} from "react";
-import {NoteContext} from "../../../context";
-import {Container} from "@mui/material";
-import {WorkSpaceTrash} from "./WorkSpaceTrash";
-import {createData} from "../../../utils/createData";
-import {WorkSpace} from "../../../hoc/WorkSpace";
-import {ReturnComponentType} from "../../../types/ReturnComponentType";
+import React, { FC, memo, useContext } from 'react';
 
-export const Trash = memo((): ReturnComponentType => {
+import { Container } from '@mui/material';
 
-    const {trash, search} = useContext(NoteContext)
+import { NoteContext } from '../../../context/Context';
+import { WorkSpace } from '../../../hoc/WorkSpace';
+import { ReturnComponentType } from '../../../types';
+import { createData } from '../../../utils/createData';
 
-    const searched = createData(trash, search)
+import { WorkSpaceTrash } from './WorkSpaceTrash';
 
-    return (
-        <Container fixed style={{paddingTop: "274px"}}>
-            <WorkSpace searched={searched} Component={WorkSpaceTrash}/>
-        </Container>
-    )
-})
+export const Trash: FC = memo((): ReturnComponentType => {
+  const { trash, search } = useContext(NoteContext);
+
+  const searched = createData(trash, search);
+
+  return (
+    <Container fixed style={{ paddingTop: '274px' }}>
+      <WorkSpace searched={searched} Component={WorkSpaceTrash} />
+    </Container>
+  );
+});

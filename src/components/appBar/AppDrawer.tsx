@@ -1,25 +1,23 @@
-import React, {useState} from 'react';
-import {Box} from '@mui/material';
-import {Header} from './header/Header';
-import {SideBar} from './header/Sidebar';
-import {ReturnComponentType} from "../../types/ReturnComponentType";
+import React, { useState } from 'react';
 
-export const AppDrawer = ():ReturnComponentType => {
+import { Box } from '@mui/material';
 
-    const [open, setOpen] = useState<boolean>(false);
+import { ReturnComponentType } from '../../types/ReturnComponentType';
 
-    const handleDrawer = () => {
-        setOpen(prevState => !prevState);
-    };
+import { Header } from './header/Header';
+import { SideBar } from './header/Sidebar';
 
-    return (
-        <Box sx={{display: 'flex', width: '100%'}}>
-            <Header open={open} handleDrawer={handleDrawer} />
-            <SideBar open={open} />
-        </Box>
-    );
-}
+export const AppDrawer = (): ReturnComponentType => {
+  const [open, setOpen] = useState<boolean>(false);
 
+  const handleDrawer = (): void => {
+    setOpen(prevState => !prevState);
+  };
 
-
-
+  return (
+    <Box sx={{ display: 'flex', width: '100%' }}>
+      <Header open={open} handleDrawer={handleDrawer} />
+      <SideBar open={open} />
+    </Box>
+  );
+};

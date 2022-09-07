@@ -2,14 +2,14 @@ import React, { FC } from 'react';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { AppDrawer } from './components/appBar/AppDrawer';
-import { Archives } from './components/workSpace/archives/Archives';
-import { Notes } from './components/workSpace/notes/Notes';
-import { Trash } from './components/workSpace/trash/Trash';
-import { NotesProvider } from './context/Context';
+import { AppDrawer } from './components';
+import { NotesProvider } from './context';
+import { Archives } from './pages/archives/Archives';
+import { Notes } from './pages/notes/Notes';
+import { Trash } from './pages/trash/Trash';
 import { ReturnComponentType } from './types';
 
-import { Path } from 'enum';
+import { Path } from 'enums';
 
 export const App: FC = (): ReturnComponentType => {
   return (

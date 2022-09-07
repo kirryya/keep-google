@@ -4,8 +4,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton, Toolbar } from '@mui/material';
 
-import { NoteContext } from '../../../context/Context';
-import { HeaderType, ReturnComponentType } from '../../../types';
+import { NoteContext } from '../../../context';
+import { ReturnComponentType } from '../../../types';
 
 import {
   AppBar,
@@ -13,7 +13,8 @@ import {
   SearchIconWrapper,
   StyledInputBase,
   StyledTypography,
-} from './HeaderStyle';
+} from './style/HeaderStyle';
+import { HeaderType } from './types';
 
 export const Header: FC<HeaderType> = memo(
   ({ open, handleDrawer }: HeaderType): ReturnComponentType => {

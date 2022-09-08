@@ -2,7 +2,7 @@
 
 This application is a partial copy of Google Keep.
 
-###You can: 
+### You can: 
 1) Create new note with and without title (you can add it later).
 2) Read all notes on first page.
 3) Update content or title of note (DoubleClick on title or text )

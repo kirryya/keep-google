@@ -6,7 +6,7 @@ import { NoteContext } from '../../context';
 import style from '../../styles/Paper.module.css';
 import { ReturnComponentType, WorkSpaceType } from '../../types';
 
-import { DeleteNotes } from './DeleteNotes';
+import { TrashNote } from './TrashNote';
 
 export const WorkSpaceTrash: React.FC<WorkSpaceType> = memo(
   ({ searched }: WorkSpaceType): ReturnComponentType => {
@@ -27,7 +27,7 @@ export const WorkSpaceTrash: React.FC<WorkSpaceType> = memo(
               <Box sx={{ display: 'flex', width: '100%' }}>
                 <Box sx={{ p: 3, width: '100%' }}>
                   <Paper className={style.appearance} elevation={3}>
-                    <DeleteNotes todolist={tl} removeTodolist={removeTodolist} />
+                    <TrashNote todolist={tl} removeTodolist={removeTodolist} />
                   </Paper>
                 </Box>
               </Box>

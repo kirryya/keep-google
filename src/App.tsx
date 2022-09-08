@@ -6,7 +6,7 @@ import { AppDrawer } from './components';
 import { NotesProvider } from './context';
 import { Archives } from './pages/archives/Archives';
 import { Notes } from './pages/notes/Notes';
-import { Trash } from './pages/trash/Trash';
+import { TrashNotes } from './pages/trash/TrashNotes';
 import { ReturnComponentType } from './types';
 
 import { Path } from 'enums';
@@ -19,7 +19,7 @@ export const App: FC = (): ReturnComponentType => {
         <Routes>
           <Route path={Path.HOME} element={<Notes />} />
           <Route path={Path.ARCHIVE} element={<Archives />} />
-          <Route path={Path.TRASH} element={<Trash />} />
+          <Route path={Path.TRASH} element={<TrashNotes />} />
         </Routes>
       </NotesProvider>
     </BrowserRouter>

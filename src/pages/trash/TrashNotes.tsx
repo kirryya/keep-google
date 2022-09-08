@@ -9,7 +9,7 @@ import { createData } from '../../utils';
 
 import { WorkSpaceTrash } from './WorkSpaceTrash';
 
-export const Trash: FC = memo((): ReturnComponentType => {
+export const TrashNotes: FC = memo((): ReturnComponentType => {
   const { trash, search } = useContext(NoteContext);
 
   const searched = createData(trash, search);

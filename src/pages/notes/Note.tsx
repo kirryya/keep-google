@@ -30,44 +30,44 @@ export const Note: FC<NoteType> = memo(
       setNewTitle(false);
     };
 
-    const handleCopyTodolist = useCallback(
+    const handleCopyTask = useCallback(
       (title: string, content: string): void => {
         setNotes([{ id: v1(), title, content }, ...notes]);
       },
       [setNotes, notes],
     );
 
-    const removeTodolistHandle = useCallback(() => {
+    const handleRemoveTask = useCallback(() => {
       removeTask(todolist.id);
     }, [removeTask, todolist.id]);
 
-    const addTodolistTitleHandle = useCallback(
+    const handleAddTaskTitle = useCallback(
       (e: ChangeEvent<HTMLInputElement>) => {
         addTaskTitle(todolist.id, e.currentTarget.value);
       },
       [addTaskTitle, todolist.id],
     );
 
-    const changeTodolistTitleHandle = useCallback(
+    const onTaskTitleChange = useCallback(
       (title: string) => {
         changeTaskTitle(todolist.id, title);
       },
       [changeTaskTitle, todolist.id],
     );
 
-    const changeTodolistNoteHandle = useCallback(
+    const onTaskContentChange = useCallback(
       (content: string) => {
         changeTaskContent(todolist.id, content);
       },
       [changeTaskContent, todolist.id],
     );
 
-    const onClickArchiveHandle = useCallback(() => {
+    const onMoveToArchiveClick = useCallback(() => {
       setNotes(notes.filter(tl => tl.id !== todolist.id));
       setArchives(prevArr => [todolist, ...prevArr]);
     }, [setNotes, setArchives, notes, todolist]);
 
-    const onClickTrashHandle = useCallback(() => {
+    const onMoveToTrashClick = useCallback(() => {
       setNotes(notes.filter(tl => tl.id !== todolist.id));
       setTrash(prevArr => [todolist, ...prevArr]);
     }, [setNotes, setTrash, notes, todolist]);
@@ -78,28 +78,28 @@ export const Note: FC<NoteType> = memo(
           {newTitle && (
             <TextField
               value={todolist.title}
-              onChange={addTodolistTitleHandle}
+              onChange={handleAddTaskTitle}
               onBlur={closeAddTitle}
             />
           )}
           <h2>
             {!newTitle && (
-              <EditableSpan value={todolist.title} onChange={changeTodolistTitleHandle} />
+              <EditableSpan value={todolist.title} onChange={onTaskTitleChange} />
             )}
           </h2>
 
           <div>
-            <EditableSpan value={todolist.content} onChange={changeTodolistNoteHandle} />
+            <EditableSpan value={todolist.content} onChange={onTaskContentChange} />
           </div>
         </div>
 
         <ButtonsBar
-          removeTask={removeTodolistHandle}
+          removeTask={handleRemoveTask}
           addTitle={handleAddTitle}
           title={todolist.title}
-          moveToArchive={onClickArchiveHandle}
-          moveToTrash={onClickTrashHandle}
-          copyTodolist={() => handleCopyTodolist(todolist.title, todolist.content)}
+          moveToArchive={onMoveToArchiveClick}
+          moveToTrash={onMoveToTrashClick}
+          copyTodolist={() => handleCopyTask(todolist.title, todolist.content)}
         />
       </div>
     );

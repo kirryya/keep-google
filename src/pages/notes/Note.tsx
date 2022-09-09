@@ -5,6 +5,7 @@ import { v1 } from 'uuid';
 
 import { EditableSpan } from '../../components';
 import { NoteContext } from '../../context';
+import style from '../../styles/Paper.module.css';
 import { ReturnComponentType } from '../../types';
 
 import { ButtonsBar } from './ButtonsBar';
@@ -73,7 +74,7 @@ export const Note: FC<NotePropsType> = memo(
 
     return (
       <div>
-        <div style={{ minWidth: '250px', maxWidth: '250px' }}>
+        <div className={style.note}>
           {newTitle && (
             <TextField
               value={todolist.title}

@@ -9,3 +9,8 @@
     max-width: 250px;
     border-radius: 8px;
 }
+
+.note {
+    min-width: 250px;
+    max-width: 250px;
+}

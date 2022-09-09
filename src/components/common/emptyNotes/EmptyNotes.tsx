@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import { Grid, Typography } from '@mui/material';
 
-import { ReturnComponentType } from '../../types';
+import { ReturnComponentType } from '../../../types';
 
 export const EmptyNotes: FC = (): ReturnComponentType => {
   return (

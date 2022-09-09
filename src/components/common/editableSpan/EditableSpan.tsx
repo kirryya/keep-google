@@ -2,9 +2,8 @@ import React, { ChangeEvent, FC, memo, useState } from 'react';
 
 import { TextField, Typography } from '@mui/material';
 
-import style from '../../styles/Paper.module.css';
-
-import { EditableSpanType } from './types';
+import style from '../../../styles/Paper.module.css';
+import { EditableSpanType } from '../types';
 
 export const EditableSpan: FC<EditableSpanType> = memo(
   ({ value, onChange }: EditableSpanType) => {
@@ -34,7 +33,7 @@ export const EditableSpan: FC<EditableSpanType> = memo(
         onBlur={activateViewMode}
         multiline
         maxRows={Infinity}
-        style={{ width: '250px' }}
+        className={style.note}
       />
     ) : (
       <Typography onDoubleClick={activateEditMode} className={style.content}>

@@ -31,7 +31,7 @@ export const Archive: FC<ArchiveType> = memo(
 
     return (
       <div>
-        <div style={{ minWidth: '240px' }}>
+        <div className={style.note}>
           <h2>
             <Typography className={style.content}>{todolist.title}</Typography>
           </h2>

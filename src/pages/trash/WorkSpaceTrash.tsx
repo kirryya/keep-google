@@ -12,7 +12,7 @@ export const WorkSpaceTrash: React.FC<WorkSpaceType> = memo(
   ({ searched }: WorkSpaceType): ReturnComponentType => {
     const { trash, setTrash } = useContext(NoteContext);
 
-    const removeTodolist = useCallback(
+    const removeTask = useCallback(
       (id: string) => {
         setTrash(trash.filter((tl: { id: string }) => tl.id !== id));
       },
@@ -27,7 +27,7 @@ export const WorkSpaceTrash: React.FC<WorkSpaceType> = memo(
               <Box sx={{ display: 'flex', width: '100%' }}>
                 <Box sx={{ p: 3, width: '100%' }}>
                   <Paper className={style.appearance} elevation={3}>
-                    <TrashNote todolist={tl} removeTodolist={removeTodolist} />
+                    <TrashNote todolist={tl} removeTask={removeTask} />
                   </Paper>
                 </Box>
               </Box>

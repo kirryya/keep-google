@@ -10,8 +10,8 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
-const rightLeft = 2;
-const spacingValue = 4;
+const RIGHT_LEFT_VALUE = 2;
+const SPACING_VALUE = 4;
 
 export const AppBar = styled(
   MuiAppBar,
@@ -34,7 +34,7 @@ export const Search = styled('div')(({ theme }) => ({
 }));
 
 export const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, rightLeft),
+  padding: theme.spacing(0, RIGHT_LEFT_VALUE),
   height: '100%',
   position: 'absolute',
   pointerEvents: 'none',
@@ -49,7 +49,7 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(spacingValue)})`,
+    paddingLeft: `calc(1em + ${theme.spacing(SPACING_VALUE)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
     height: '30px',

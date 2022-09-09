@@ -1,14 +1,14 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { NoteType } from '../../types';
+import { TaskType } from '../../types';
 
 export type ContextType = {
-  notes: NoteType[];
-  setNotes: Dispatch<SetStateAction<NoteType[]>>;
-  archives: NoteType[];
-  setArchives: Dispatch<SetStateAction<NoteType[]>>;
-  trash: NoteType[];
-  setTrash: Dispatch<SetStateAction<NoteType[]>>;
+  notes: TaskType[];
+  setNotes: Dispatch<SetStateAction<TaskType[]>>;
+  archives: TaskType[];
+  setArchives: Dispatch<SetStateAction<TaskType[]>>;
+  trash: TaskType[];
+  setTrash: Dispatch<SetStateAction<TaskType[]>>;
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
 };

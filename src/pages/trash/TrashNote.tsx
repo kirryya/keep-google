@@ -13,12 +13,12 @@ import { ReturnComponentType } from '../../types';
 import { DeleteNotesType } from './types';
 
 export const TrashNote: FC<DeleteNotesType> = memo(
-  ({ todolist, removeTodolist }: DeleteNotesType): ReturnComponentType => {
+  ({ todolist, removeTask }: DeleteNotesType): ReturnComponentType => {
     const { trash, setArchives, setNotes, setTrash } = useContext(NoteContext);
 
     const removeTodolistHandle = useCallback(() => {
-      removeTodolist(todolist.id);
-    }, [removeTodolist, todolist]);
+      removeTask(todolist.id);
+    }, [removeTask, todolist]);
 
     const onClickNoteHandle = useCallback(() => {
       setTrash(trash.filter(tl => tl.id !== todolist.id));
@@ -37,7 +37,7 @@ export const TrashNote: FC<DeleteNotesType> = memo(
             <Typography className={style.content}>{todolist.title}</Typography>
           </h2>
           <div>
-            <Typography className={style.content}>{todolist.note}</Typography>
+            <Typography className={style.content}>{todolist.content}</Typography>
           </div>
         </div>
         <div style={{ marginTop: '25px', marginLeft: '-10px' }}>

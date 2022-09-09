@@ -1,15 +1,15 @@
-import { NoteType } from 'types';
+import { TaskType } from 'types';
 
-export type NotePropsType = {
-  todolist: NoteType;
-  removeTodolist: (id: string) => void;
-  changeTodolistTitle: (id: string, newTitle: string) => void;
-  changeTodolistNote: (id: string, newNote: string) => void;
-  addTodolistTitle: (id: string, newTitle: string) => void;
+export type NoteType = {
+  todolist: TaskType;
+  removeTask: (id: string) => void;
+  changeTaskTitle: (id: string, newTitle: string) => void;
+  changeTaskContent: (id: string, newContent: string) => void;
+  addTaskTitle: (id: string, newTitle: string) => void;
 };
 
 export type ButtonsBarType = {
-  removeTodolist: () => void;
+  removeTask: () => void;
   addTitle?: () => void;
   title?: string;
   moveToArchive: () => void;

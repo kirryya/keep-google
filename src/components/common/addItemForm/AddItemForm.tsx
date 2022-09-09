@@ -7,7 +7,7 @@ import style from './styles/AddItemForm.module.css';
 import { AddItemFormType } from './types';
 
 export const AddItemForm: FC<AddItemFormType> = memo(({ addItem }: AddItemFormType) => {
-  const [note, setNote] = useState('');
+  const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [textField, setTextField] = useState<boolean>(false);
@@ -21,9 +21,9 @@ export const AddItemForm: FC<AddItemFormType> = memo(({ addItem }: AddItemFormTy
   };
 
   const addItemHandle = (): void => {
-    if (note.trim() !== '') {
-      addItem(title, note);
-      setNote('');
+    if (content.trim() !== '') {
+      addItem(title, content);
+      setContent('');
       setTitle('');
       setError(null);
       setTextField(false);
@@ -33,7 +33,7 @@ export const AddItemForm: FC<AddItemFormType> = memo(({ addItem }: AddItemFormTy
   };
 
   const onChangeNoteHandle = (e: ChangeEvent<HTMLInputElement>): void => {
-    setNote(e.currentTarget.value);
+    setContent(e.currentTarget.value);
   };
 
   const onChangeTitleHandle = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -62,7 +62,7 @@ export const AddItemForm: FC<AddItemFormType> = memo(({ addItem }: AddItemFormTy
             maxRows={Infinity}
             helperText={error}
             error={!!error}
-            value={note}
+            value={content}
             onChange={onChangeNoteHandle}
             InputProps={{ disableUnderline: true }}
             className={style.content}

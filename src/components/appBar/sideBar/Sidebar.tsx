@@ -18,7 +18,7 @@ import { ReturnComponentType } from '../../../types';
 import { Drawer, DrawerHeader } from './style/SidebarStyle';
 import { SideBarIconsType, SideBarType } from './types';
 
-const marginRight = 3;
+const MARGIN_RIGHT = 3;
 
 export const SideBar: FC<SideBarType> = memo(
   ({ open }: SideBarType): ReturnComponentType => {
@@ -49,7 +49,7 @@ export const SideBar: FC<SideBarType> = memo(
                     <ListItemIcon
                       sx={{
                         minWidth: 0,
-                        mr: open ? marginRight : 'auto',
+                        mr: open ? MARGIN_RIGHT : 'auto',
                         justifyContent: 'center',
                       }}
                     >

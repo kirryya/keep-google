@@ -9,15 +9,15 @@ import IconButton from '@mui/material/IconButton';
 import { NoteContext } from '../../context';
 import style from '../../styles/Paper.module.css';
 
-import { ArchiveType } from './types';
+import { ArchiveNoteType } from './types';
 
-export const Archive: FC<ArchiveType> = memo(
-  ({ todolist, removeTodolist }: ArchiveType) => {
+export const ArchiveNote: FC<ArchiveNoteType> = memo(
+  ({ todolist, removeTask }: ArchiveNoteType) => {
     const { archives, setArchives, setNotes, setTrash } = useContext(NoteContext);
 
     const removeTodolistHandle = useCallback(() => {
-      removeTodolist(todolist.id);
-    }, [removeTodolist, todolist.id]);
+      removeTask(todolist.id);
+    }, [removeTask, todolist.id]);
 
     const onClickNoteHandle = useCallback(() => {
       setArchives(archives.filter(tl => tl.id !== todolist.id));
@@ -36,7 +36,7 @@ export const Archive: FC<ArchiveType> = memo(
             <Typography className={style.content}>{todolist.title}</Typography>
           </h2>
           <div>
-            <Typography className={style.content}>{todolist.note}</Typography>
+            <Typography className={style.content}>{todolist.content}</Typography>
           </div>
         </div>
         <div style={{ marginTop: '25px', marginLeft: '-10px' }}>

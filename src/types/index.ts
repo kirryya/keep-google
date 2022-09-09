@@ -1,12 +1,12 @@
 export type { Nullable } from './Nullable';
 export type { ReturnComponentType } from './ReturnComponentType';
 
-export type NoteType = {
+export type TaskType = {
   id: string;
   title: string;
-  note: string;
+  content: string;
 };
 
 export type WorkSpaceType = {
-  searched: NoteType[] | null;
+  searched: TaskType[] | null;
 };

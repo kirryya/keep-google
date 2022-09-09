@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useMemo, useState } from 'react';
 
-import { ReturnComponentType, NoteType } from '../types';
+import { ReturnComponentType, TaskType } from '../types';
 
 import { ContextType } from './types';
 
@@ -22,9 +22,9 @@ export const NotesProvider = ({
 }: {
   children: ReactNode;
 }): ReturnComponentType => {
-  const [notes, setNotes] = useState<NoteType[]>([]);
-  const [archives, setArchives] = useState<NoteType[]>([]);
-  const [trash, setTrash] = useState<NoteType[]>([]);
+  const [notes, setNotes] = useState<TaskType[]>([]);
+  const [archives, setArchives] = useState<TaskType[]>([]);
+  const [trash, setTrash] = useState<TaskType[]>([]);
   const [search, setSearch] = useState<string>('');
 
   const value = useMemo(

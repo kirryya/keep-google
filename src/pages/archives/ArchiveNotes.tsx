@@ -9,7 +9,7 @@ import { createData } from '../../utils';
 
 import { WorkSpaceArchives } from './WorkSpaceArchives';
 
-export const Archives: FC = (): ReturnComponentType => {
+export const ArchiveNotes: FC = (): ReturnComponentType => {
   const { archives, search } = useContext(NoteContext);
 
   const searched = createData(archives, search);

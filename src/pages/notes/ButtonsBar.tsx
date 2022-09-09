@@ -17,7 +17,7 @@ export const ButtonsBar: FC<ButtonsBarType> = ({
   moveToTrash,
   title,
   addTitle,
-  removeTodolist,
+  removeTask,
   copyTodolist,
 }): ReturnComponentType => {
   return (
@@ -33,7 +33,7 @@ export const ButtonsBar: FC<ButtonsBarType> = ({
         </IconButton>
       </Tooltip>
       <Tooltip title="Удалить">
-        <IconButton onClick={removeTodolist}>
+        <IconButton onClick={removeTask}>
           <HighlightOffOutlinedIcon fontSize="small" />
         </IconButton>
       </Tooltip>

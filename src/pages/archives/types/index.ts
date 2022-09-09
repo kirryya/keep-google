@@ -1,6 +1,6 @@
-import { NoteType } from '../../../types';
+import { TaskType } from '../../../types';
 
-export type ArchiveType = {
-  todolist: NoteType;
-  removeTodolist: (id: string) => void;
+export type ArchiveNoteType = {
+  todolist: TaskType;
+  removeTask: (id: string) => void;
 };

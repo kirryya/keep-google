@@ -9,16 +9,16 @@ import style from '../../styles/Paper.module.css';
 import { ReturnComponentType } from '../../types';
 
 import { ButtonsBar } from './ButtonsBar';
-import { NotePropsType } from './types';
+import { NoteType } from './types';
 
-export const Note: FC<NotePropsType> = memo(
+export const Note: FC<NoteType> = memo(
   ({
     todolist,
-    removeTodolist,
-    changeTodolistTitle,
-    addTodolistTitle,
-    changeTodolistNote,
-  }: NotePropsType): ReturnComponentType => {
+    removeTask,
+    changeTaskTitle,
+    addTaskTitle,
+    changeTaskContent,
+  }: NoteType): ReturnComponentType => {
     const { notes, setArchives, setNotes, setTrash } = useContext(NoteContext);
 
     const [newTitle, setNewTitle] = useState<boolean>(false);
@@ -31,35 +31,35 @@ export const Note: FC<NotePropsType> = memo(
     };
 
     const handleCopyTodolist = useCallback(
-      (title: string, note: string): void => {
-        setNotes([{ id: v1(), title, note }, ...notes]);
+      (title: string, content: string): void => {
+        setNotes([{ id: v1(), title, content }, ...notes]);
       },
       [setNotes, notes],
     );
 
     const removeTodolistHandle = useCallback(() => {
-      removeTodolist(todolist.id);
-    }, [removeTodolist, todolist.id]);
+      removeTask(todolist.id);
+    }, [removeTask, todolist.id]);
 
     const addTodolistTitleHandle = useCallback(
       (e: ChangeEvent<HTMLInputElement>) => {
-        addTodolistTitle(todolist.id, e.currentTarget.value);
+        addTaskTitle(todolist.id, e.currentTarget.value);
       },
-      [addTodolistTitle, todolist.id],
+      [addTaskTitle, todolist.id],
     );
 
     const changeTodolistTitleHandle = useCallback(
       (title: string) => {
-        changeTodolistTitle(todolist.id, title);
+        changeTaskTitle(todolist.id, title);
       },
-      [changeTodolistTitle, todolist.id],
+      [changeTaskTitle, todolist.id],
     );
 
     const changeTodolistNoteHandle = useCallback(
-      (note: string) => {
-        changeTodolistNote(todolist.id, note);
+      (content: string) => {
+        changeTaskContent(todolist.id, content);
       },
-      [changeTodolistNote, todolist.id],
+      [changeTaskContent, todolist.id],
     );
 
     const onClickArchiveHandle = useCallback(() => {
@@ -87,17 +87,19 @@ export const Note: FC<NotePropsType> = memo(
               <EditableSpan value={todolist.title} onChange={changeTodolistTitleHandle} />
             )}
           </h2>
+
           <div>
-            <EditableSpan value={todolist.note} onChange={changeTodolistNoteHandle} />
+            <EditableSpan value={todolist.content} onChange={changeTodolistNoteHandle} />
           </div>
         </div>
+
         <ButtonsBar
-          removeTodolist={removeTodolistHandle}
+          removeTask={removeTodolistHandle}
           addTitle={handleAddTitle}
           title={todolist.title}
           moveToArchive={onClickArchiveHandle}
           moveToTrash={onClickTrashHandle}
-          copyTodolist={() => handleCopyTodolist(todolist.title, todolist.note)}
+          copyTodolist={() => handleCopyTodolist(todolist.title, todolist.content)}
         />
       </div>
     );

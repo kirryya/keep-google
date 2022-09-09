@@ -16,9 +16,9 @@ export const Notes: FC = memo((): ReturnComponentType => {
 
   const searched = createData(notes, search);
 
-  const addTodolist = useCallback(
-    (title: string, note: string) => {
-      setNotes([{ id: v1(), title, note }, ...notes]);
+  const addNote = useCallback(
+    (title: string, content: string) => {
+      setNotes([{ id: v1(), title, content }, ...notes]);
     },
     [notes, setNotes],
   );
@@ -26,8 +26,9 @@ export const Notes: FC = memo((): ReturnComponentType => {
   return (
     <Container fixed>
       <Grid container style={{ padding: '100px' }}>
-        <AddItemForm addItem={addTodolist} />
+        <AddItemForm addItem={addNote} />
       </Grid>
+
       <WorkSpace searched={searched} Component={WorkSpaceNotes} />
     </Container>
   );

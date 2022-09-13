@@ -16,16 +16,16 @@ export const TrashNote: FC<DeleteNotesType> = memo(
   ({ todolist, removeTask }: DeleteNotesType): ReturnComponentType => {
     const { trash, setArchives, setNotes, setTrash } = useContext(NoteContext);
 
-    const removeTodolistHandle = useCallback(() => {
+    const onRemoveTaskClick = useCallback(() => {
       removeTask(todolist.id);
     }, [removeTask, todolist]);
 
-    const onClickNoteHandle = useCallback(() => {
+    const onMoveToNotesClick = useCallback(() => {
       setTrash(trash.filter(tl => tl.id !== todolist.id));
       setNotes(prevArr => [todolist, ...prevArr]);
     }, [setTrash, trash, todolist, setNotes]);
 
-    const onClickArchiveHandle = useCallback(() => {
+    const onMoveToArchiveClick = useCallback(() => {
       setTrash(trash.filter(tl => tl.id !== todolist.id));
       setArchives(prevArr => [todolist, ...prevArr]);
     }, [setTrash, trash, todolist, setArchives]);
@@ -42,17 +42,17 @@ export const TrashNote: FC<DeleteNotesType> = memo(
         </div>
         <div style={{ marginTop: '25px', marginLeft: '-10px' }}>
           <Tooltip title="Переместить в заметки">
-            <IconButton onClick={onClickNoteHandle}>
+            <IconButton onClick={onMoveToNotesClick}>
               <LightbulbOutlinedIcon fontSize="small" />
             </IconButton>
           </Tooltip>
           <Tooltip title="Переместить в архив">
-            <IconButton onClick={onClickArchiveHandle}>
+            <IconButton onClick={onMoveToArchiveClick}>
               <ArchiveOutlinedIcon fontSize="small" />
             </IconButton>
           </Tooltip>
           <Tooltip title="Удалить">
-            <IconButton onClick={removeTodolistHandle}>
+            <IconButton onClick={onRemoveTaskClick}>
               <HighlightOffOutlinedIcon fontSize="small" />
             </IconButton>
           </Tooltip>

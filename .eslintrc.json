@@ -38,6 +38,7 @@
         "**/*.spec.tsx"
     ] }],
     "rules": {
+        "linebreak-style": [0,"error", "windows"],
         "import/order": [
             "error",
             {

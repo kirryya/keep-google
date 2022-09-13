@@ -2,12 +2,11 @@ import React, { FC } from 'react';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { AppDrawer } from './components';
-import { NotesProvider } from './context';
-import { ArchiveNotes, Notes, TrashNotes } from './pages';
-import { ReturnComponentType } from './types';
-
+import { AppDrawer } from 'components';
+import { NotesProvider } from 'context';
 import { Path } from 'enums';
+import { ArchiveNotes, Notes, TrashNotes } from 'pages';
+import { ReturnComponentType } from 'types';
 
 const ROUTES = [
   { path: Path.HOME, element: <Notes /> },

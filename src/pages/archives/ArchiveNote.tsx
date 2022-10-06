@@ -6,10 +6,11 @@ import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import { Tooltip, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 
-import { NoteContext } from '../../context';
 import style from '../../styles/Paper.module.css';
 
 import { ArchiveNoteType } from './types';
+
+import { NoteContext } from 'context';
 
 export const ArchiveNote: FC<ArchiveNoteType> = memo(
   ({ todolist, removeTask }: ArchiveNoteType) => {

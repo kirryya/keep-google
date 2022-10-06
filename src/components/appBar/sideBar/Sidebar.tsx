@@ -13,19 +13,20 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import { ReturnComponentType } from '../../../types';
-
 import { Drawer, DrawerHeader } from './style/SidebarStyle';
 import { SideBarIconsType, SideBarType } from './types';
+
+import { Path } from 'enums';
+import { ReturnComponentType } from 'types';
 
 const MARGIN_RIGHT = 3;
 
 export const SideBar: FC<SideBarType> = memo(
   ({ open }: SideBarType): ReturnComponentType => {
     const sideBarLinks: SideBarIconsType = [
-      { id: 1, name: 'Заметки', icon: <LightbulbOutlinedIcon />, route: '/' },
-      { id: 2, name: 'Архив', icon: <ArchiveOutlinedIcon />, route: '/archive' },
-      { id: 3, name: 'Корзина', icon: <Delete />, route: '/trash' },
+      { id: 1, name: 'Заметки', icon: <LightbulbOutlinedIcon />, route: Path.HOME },
+      { id: 2, name: 'Архив', icon: <ArchiveOutlinedIcon />, route: Path.ARCHIVE },
+      { id: 3, name: 'Корзина', icon: <Delete />, route: Path.TRASH },
     ];
 
     return (

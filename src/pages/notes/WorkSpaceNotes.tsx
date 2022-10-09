@@ -2,11 +2,12 @@ import React, { FC, memo, useCallback, useContext } from 'react';
 
 import { Box, Grid, Paper } from '@mui/material';
 
-import { NoteContext } from '../../context';
 import style from '../../styles/Paper.module.css';
-import { ReturnComponentType, WorkSpaceType } from '../../types';
 
 import { Note } from './Note';
+
+import { NoteContext } from 'context';
+import { ReturnComponentType, WorkSpaceType } from 'types';
 
 export const WorkSpaceNotes: FC<WorkSpaceType> = memo(
   ({ searched }: WorkSpaceType): ReturnComponentType => {

@@ -1,9 +1,9 @@
 import React, { FC, memo } from 'react';
 
-import { EmptyNotes } from '../../components';
-import { ReturnComponentType } from '../../types';
-
 import { WorkSpaceType } from './types';
+
+import { EmptyNotes } from 'components';
+import { ReturnComponentType } from 'types';
 
 export const WorkSpace: FC<WorkSpaceType> = memo(
   ({ Component, searched }: WorkSpaceType): ReturnComponentType => {

@@ -3,13 +3,13 @@ import React, { FC, memo, useCallback, useContext } from 'react';
 import { Container, Grid } from '@mui/material';
 import { v1 } from 'uuid';
 
-import { AddItemForm } from '../../components';
-import { NoteContext } from '../../context';
-import { WorkSpace } from '../../hoc';
-import { ReturnComponentType } from '../../types';
-import { createData } from '../../utils';
-
 import { WorkSpaceNotes } from './WorkSpaceNotes';
+
+import { AddItemForm } from 'components';
+import { NoteContext } from 'context';
+import { WorkSpace } from 'hoc';
+import { ReturnComponentType } from 'types';
+import { createData } from 'utils';
 
 export const Notes: FC = memo((): ReturnComponentType => {
   const { notes, setNotes, search } = useContext(NoteContext);
